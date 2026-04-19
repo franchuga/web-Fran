@@ -1,0 +1,98 @@
+<h2>¿Qué estructura de layout prefieres?</h2>
+<p class="subtitle">Las 3 opciones usan el estilo Dark Pro. Elige la que mejor se adapta a lo que buscas.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="one-page" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d1117;padding:12px;font-family:monospace;min-height:160px;border-radius:6px;font-size:10px;">
+      <div style="background:#161b22;border-radius:4px;padding:6px 10px;display:flex;gap:12px;align-items:center;margin-bottom:8px;">
+        <span style="color:#58a6ff;font-weight:700;">FGA</span>
+        <span style="color:#8b949e;margin-left:auto;">Inicio</span>
+        <span style="color:#8b949e;">Proyectos</span>
+        <span style="color:#8b949e;">Estudios</span>
+        <span style="color:#58a6ff;border:1px solid #58a6ff;padding:2px 6px;border-radius:3px;">🎮 Jugar</span>
+      </div>
+      <div style="text-align:center;padding:10px 0 8px;">
+        <div style="color:#c9d1d9;font-size:13px;font-weight:700;">Francesc Guillemat</div>
+        <div style="color:#58a6ff;font-size:10px;">Desarrollador Web</div>
+        <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;">
+          <span style="background:#21262d;color:#c9d1d9;padding:2px 5px;border-radius:3px;">HTML</span>
+          <span style="background:#21262d;color:#c9d1d9;padding:2px 5px;border-radius:3px;">JS</span>
+          <span style="background:#21262d;color:#c9d1d9;padding:2px 5px;border-radius:3px;">SQL</span>
+        </div>
+      </div>
+      <div style="border-top:1px solid #21262d;padding-top:6px;margin-top:2px;">
+        <div style="color:#8b949e;font-size:9px;margin-bottom:4px;">// Proyectos</div>
+        <div style="display:flex;gap:4px;">
+          <div style="background:#161b22;border:1px solid #21262d;border-radius:3px;flex:1;padding:4px;color:#c9d1d9;font-size:9px;">Web Institut</div>
+          <div style="background:#161b22;border:1px solid #21262d;border-radius:3px;flex:1;padding:4px;color:#c9d1d9;font-size:9px;">Fitxatges</div>
+          <div style="background:#161b22;border:1px solid #21262d;border-radius:3px;flex:1;padding:4px;color:#c9d1d9;font-size:9px;">Pedidos</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Una sola página (One-Page)</h3>
+      <p>Todo en <code>index.html</code>: hero, proyectos y estudios en secciones con scroll suave. Navbar fija arriba. Botón especial para el juego que abre <code>game.html</code>. Simple, rápido y muy profesional.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="multi-page" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d1117;padding:12px;font-family:monospace;min-height:160px;border-radius:6px;font-size:10px;">
+      <div style="background:#161b22;border-radius:4px;padding:6px 10px;display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+        <span style="color:#58a6ff;font-weight:700;">FGA</span>
+        <span style="color:#58a6ff;border-bottom:2px solid #58a6ff;padding-bottom:1px;margin-left:auto;">Inicio</span>
+        <span style="color:#8b949e;">Proyectos</span>
+        <span style="color:#8b949e;">Estudios</span>
+        <span style="color:#3fb950;">Jugar</span>
+      </div>
+      <div style="display:flex;gap:6px;height:100px;">
+        <div style="background:#161b22;border:1px solid #21262d;border-radius:4px;width:60px;padding:6px;">
+          <div style="color:#8b949e;font-size:8px;margin-bottom:4px;">Páginas</div>
+          <div style="color:#58a6ff;font-size:9px;padding:3px;background:#0d1117;border-radius:2px;margin-bottom:2px;">▶ Inicio</div>
+          <div style="color:#c9d1d9;font-size:9px;padding:3px;margin-bottom:2px;">Proyectos</div>
+          <div style="color:#c9d1d9;font-size:9px;padding:3px;margin-bottom:2px;">Estudios</div>
+          <div style="color:#3fb950;font-size:9px;padding:3px;">🎮 Jugar</div>
+        </div>
+        <div style="flex:1;background:#161b22;border:1px solid #21262d;border-radius:4px;padding:8px;">
+          <div style="color:#c9d1d9;font-size:11px;font-weight:700;">Bienvenido</div>
+          <div style="color:#8b949e;font-size:9px;margin-top:4px;">Desarrollador de<br>Aplicaciones Web</div>
+          <div style="width:30px;height:2px;background:#58a6ff;margin-top:8px;border-radius:1px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Multi-página</h3>
+      <p>Cada sección es su propia página: <code>index.html</code>, <code>proyectos.html</code>, <code>estudios.html</code>, <code>game.html</code>. Más fácil de ampliar en el futuro. Más trabajo inicial pero más organizado.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="one-page-sidebar" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d1117;padding:12px;font-family:monospace;min-height:160px;border-radius:6px;font-size:10px;">
+      <div style="display:flex;gap:6px;height:130px;">
+        <div style="background:#161b22;border-right:1px solid #21262d;width:65px;padding:8px;border-radius:4px 0 0 4px;">
+          <div style="color:#58a6ff;font-size:9px;font-weight:700;margin-bottom:8px;">FGA</div>
+          <div style="width:30px;height:30px;border-radius:50%;background:#21262d;margin-bottom:6px;display:flex;align-items:center;justify-content:center;color:#58a6ff;font-size:12px;">F</div>
+          <div style="color:#58a6ff;font-size:8px;padding:3px 0;border-left:2px solid #58a6ff;padding-left:4px;">Inicio</div>
+          <div style="color:#8b949e;font-size:8px;padding:3px 0 3px 6px;">Proyectos</div>
+          <div style="color:#8b949e;font-size:8px;padding:3px 0 3px 6px;">Estudios</div>
+          <div style="color:#3fb950;font-size:8px;padding:3px 0 3px 6px;">🎮 Jugar</div>
+        </div>
+        <div style="flex:1;padding:8px;">
+          <div style="color:#c9d1d9;font-size:12px;font-weight:700;">Francesc</div>
+          <div style="color:#58a6ff;font-size:9px;">Dev Web</div>
+          <div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:8px;">
+            <span style="background:#21262d;color:#c9d1d9;padding:2px 4px;border-radius:3px;font-size:8px;">HTML</span>
+            <span style="background:#21262d;color:#c9d1d9;padding:2px 4px;border-radius:3px;font-size:8px;">CSS</span>
+            <span style="background:#21262d;color:#c9d1d9;padding:2px 4px;border-radius:3px;font-size:8px;">JS</span>
+            <span style="background:#21262d;color:#c9d1d9;padding:2px 4px;border-radius:3px;font-size:8px;">Java</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Sidebar fija + One-Page</h3>
+      <p>Navegación vertical fija a la izquierda con tu foto/avatar y links. Contenido principal a la derecha con scroll. Aspecto muy profesional, tipo portfolio de desarrollador senior.</p>
+    </div>
+  </div>
+
+</div>

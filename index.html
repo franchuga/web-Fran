@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francesc Guillemat — Desarrollador Web</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            gap: 1.25rem;
+        }
+
+        .hero__label {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero__name {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.1;
+        }
+
+        .hero__title {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--accent);
+            font-weight: 400;
+        }
+
+        .hero__actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <span class="navbar__logo">FGA</span>
+        <ul class="navbar__links">
+            <li><a href="index.html" class="active">Inicio</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="estudios.html">Estudios</a></li>
+            <li><a href="aficiones.html">Aficiones</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="game.html">Jugar</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1 class="hero__name">Francesc Guillemat Arrabal</h1>
+            <p class="hero__title">Desarrollador de Aplicaciones Web</p>
+            <div class="badges">
+                <span class="badge">HTML</span>
+                <span class="badge">CSS</span>
+                <span class="badge">JavaScript</span>
+                <span class="badge">SQL</span>
+                <span class="badge">Java</span>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Francesc Guillemat Arrabal &mdash; 2026</p>
+    </footer>
+
+    <canvas id="starsCanvas"
+        style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+
+    <script>
+        const starsCanvas = document.getElementById('starsCanvas');
+        const sCtx = starsCanvas.getContext('2d');
+        let stars = [];
+
+        function resize() {
+            starsCanvas.width = window.innerWidth;
+            starsCanvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function spawnStar() {
+            stars.push({
+                x: Math.random() * starsCanvas.width,
+                y: Math.random() * starsCanvas.height,
+                size: Math.random() * 8 + 6,
+                alpha: 0,
+                phase: 'in',
+                speed: Math.random() * 0.008 + 0.004
+            });
+        }
+
+        for (let i = 0; i < 40; i++) {
+            spawnStar();
+            stars[i].alpha = Math.random();
+        }
+
+        function tick() {
+            sCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+
+            for (const s of stars) {
+                if (s.phase === 'in') {
+                    s.alpha += s.speed;
+                    if (s.alpha >= 1) { s.alpha = 1; s.phase = 'out'; }
+                } else {
+                    s.alpha -= s.speed;
+                }
+                sCtx.globalAlpha = Math.max(0, s.alpha);
+                sCtx.fillStyle = '#ffffff';
+                sCtx.font = `${s.size}px monospace`;
+                sCtx.fillText('*', s.x, s.y);
+            }
+
+            sCtx.globalAlpha = 1;
+            stars = stars.filter(s => !(s.phase === 'out' && s.alpha <= 0));
+            while (stars.length < 40) spawnStar();
+
+            requestAnimationFrame(tick);
+        }
+        tick();
+    </script>
+</body>
+
+</html>

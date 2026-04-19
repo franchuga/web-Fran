@@ -1,0 +1,68 @@
+<h2>¿Qué estilo visual prefieres para tu portfolio?</h2>
+<p class="subtitle">Elige el que mejor represente tu identidad como desarrollador web</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="dark-pro" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d1117;padding:16px;font-family:monospace;min-height:120px;border-radius:6px;">
+      <div style="color:#58a6ff;font-size:12px;margin-bottom:8px;">// Francisco Dev</div>
+      <div style="color:#c9d1d9;font-size:18px;font-weight:700;">Desarrollador<br><span style="color:#58a6ff;">Web</span></div>
+      <div style="display:flex;gap:6px;margin-top:12px;">
+        <span style="background:#21262d;color:#58a6ff;padding:3px 8px;border-radius:20px;font-size:10px;">React</span>
+        <span style="background:#21262d;color:#58a6ff;padding:3px 8px;border-radius:20px;font-size:10px;">Node.js</span>
+        <span style="background:#21262d;color:#3fb950;padding:3px 8px;border-radius:20px;font-size:10px;">SQL</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Dark Pro</h3>
+      <p>Fondo oscuro tipo GitHub/VSCode. Colores neón sutiles. Fuerte estética de desarrollador. Moderno y técnico.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="clean-minimal" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#ffffff;padding:16px;font-family:'Segoe UI',sans-serif;min-height:120px;border-radius:6px;border:1px solid #e5e7eb;">
+      <div style="color:#6b7280;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">PORTFOLIO</div>
+      <div style="color:#111827;font-size:18px;font-weight:800;">Francisco<br>García</div>
+      <div style="width:40px;height:3px;background:#6366f1;margin-top:10px;border-radius:2px;"></div>
+      <div style="color:#374151;font-size:11px;margin-top:8px;">Desarrollador de Aplicaciones Web</div>
+    </div>
+    <div class="card-body">
+      <h3>B — Clean Minimal</h3>
+      <p>Blanco y gris con acento púrpura/índigo. Tipografía fuerte. Profesional y limpio. Fácil de leer.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="gradient-modern" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:linear-gradient(135deg,#667eea,#764ba2);padding:16px;font-family:'Segoe UI',sans-serif;min-height:120px;border-radius:6px;">
+      <div style="color:rgba(255,255,255,0.7);font-size:11px;letter-spacing:2px;margin-bottom:6px;">DEVELOPER PORTFOLIO</div>
+      <div style="color:#fff;font-size:20px;font-weight:800;">Francisco</div>
+      <div style="color:rgba(255,255,255,0.85);font-size:13px;margin-top:4px;">Full Stack Web Developer</div>
+      <div style="margin-top:12px;">
+        <span style="background:rgba(255,255,255,0.2);color:#fff;padding:3px 10px;border-radius:20px;font-size:10px;backdrop-filter:blur(4px);">Ver proyectos →</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Gradient Modern</h3>
+      <p>Degradados púrpura-azul. Glassmorphism. Vibrante y llamativo. Destaca entre la competencia.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="dark-neon" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#050510;padding:16px;font-family:monospace;min-height:120px;border-radius:6px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(0,255,200,0.08),transparent 60%);pointer-events:none;"></div>
+      <div style="color:#00ffc8;font-size:11px;margin-bottom:6px;">&gt; whoami</div>
+      <div style="color:#fff;font-size:16px;font-weight:700;">Francisco_Dev<span style="color:#00ffc8;animation:blink 1s step-end infinite;">█</span></div>
+      <div style="color:#888;font-size:11px;margin-top:6px;"># Web Developer | Maker | Builder</div>
+      <div style="display:flex;gap:4px;margin-top:10px;">
+        <span style="border:1px solid #00ffc8;color:#00ffc8;padding:2px 7px;border-radius:3px;font-size:9px;">HTML</span>
+        <span style="border:1px solid #00ffc8;color:#00ffc8;padding:2px 7px;border-radius:3px;font-size:9px;">CSS</span>
+        <span style="border:1px solid #00ffc8;color:#00ffc8;padding:2px 7px;border-radius:3px;font-size:9px;">JS</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>D — Dark Neon Terminal</h3>
+      <p>Negro puro con verde/cian neón. Estética hacker/terminal. Muy original y memorable.</p>
+    </div>
+  </div>
+
+</div>
