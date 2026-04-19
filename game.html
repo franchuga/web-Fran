@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pong — Francesc Guillemat</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animations.css">
   <style>
     .game-wrapper {
       flex: 1;
@@ -44,19 +45,23 @@
       color: var(--text);
       letter-spacing: 4px;
     }
+
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <span class="navbar__logo">FGA</span>
+    <span class="navbar__logo">FG</span>
     <ul class="navbar__links">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="proyectos.html">Proyectos</a></li>
-      <li><a href="estudios.html">Estudios</a></li>
-      <li><a href="aficiones.html">Aficiones</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="game.html" class="active">Jugar</a></li>
+      <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
+      <li><a href="proyectos.html" data-i18n="nav.projects">Proyectos</a></li>
+      <li><a href="estudios.html" data-i18n="nav.studies">Estudios y Trabajo</a></li>
+      <li><a href="aficiones.html" data-i18n="nav.hobbies">Aficiones</a></li>
+      <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="game.html" class="active" data-i18n="nav.play">Jugar</a></li>
+      <li><a href="contacto.html" data-i18n="nav.contact">Contacto</a></li>
     </ul>
+    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+    <button class="lang-toggle" onclick="openLangModal()" aria-label="Cambiar idioma"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
   </nav>
 
   <div class="game-wrapper">
@@ -67,14 +72,17 @@
       <span id="scoreCpu">0</span>
     </div>
     <canvas id="pongCanvas" width="640" height="400"></canvas>
-    <p class="game-controls">W / S &nbsp;&nbsp;o&nbsp;&nbsp; Arriba / Abajo &nbsp;&nbsp;para mover &nbsp;&nbsp;|&nbsp;&nbsp; Pulsa cualquier tecla para empezar</p>
-    <a href="index.html" class="btn btn-secondary">Volver al inicio</a>
+    <p class="game-controls" data-i18n="game.controls">W / S &nbsp;&nbsp;o&nbsp;&nbsp; Arriba / Abajo &nbsp;&nbsp;para mover &nbsp;&nbsp;|&nbsp;&nbsp; Pulsa cualquier tecla para empezar</p>
+    <a href="index.html" class="btn btn-secondary" data-i18n="game.back">Volver al inicio</a>
   </div>
 
   <footer class="footer">
-    <p>Francesc Guillemat Arrabal &mdash; 2026</p>
+    <p data-i18n="footer">Francesc Guillemat Arrabal &mdash; 2026</p>
   </footer>
 
+  <script src="theme.js"></script>
+  <script src="i18n.js"></script>
+  <script src="globe-modal.js"></script>
   <script>
     const canvas = document.getElementById('pongCanvas');
     const ctx = canvas.getContext('2d');
@@ -86,13 +94,18 @@
     const PADDLE_W = 12;
     const PADDLE_H = 80;
     const BALL_SIZE = 10;
-    const PADDLE_SPEED = 5;
-    const CPU_SPEED = 3.5;
-    const BALL_START_SPEED = 4;
+    const PADDLE_SPEED = 3;
+    const CPU_SPEED = 2;
+    const BALL_START_SPEED = 2;
 
     let started = false;
     let scorePlayer = 0;
     let scoreCpu = 0;
+    let overlayText = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS['game.overlay'])
+      ? TRANSLATIONS['game.overlay'][getLang()] : 'Pulsa cualquier tecla para empezar';
+    document.addEventListener('langchange', e => {
+      overlayText = TRANSLATIONS['game.overlay'][e.detail.lang];
+    });
 
     const player = { x: 20, y: H / 2 - PADDLE_H / 2, w: PADDLE_W, h: PADDLE_H, dy: 0 };
     const cpu    = { x: W - 20 - PADDLE_W, y: H / 2 - PADDLE_H / 2, w: PADDLE_W, h: PADDLE_H };
@@ -216,7 +229,7 @@
         ctx.fillStyle = '#c9d1d9';
         ctx.font = '18px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('Pulsa cualquier tecla para empezar', W / 2, H / 2);
+        ctx.fillText(overlayText, W / 2, H / 2);
       }
     }
 
@@ -232,5 +245,6 @@
 
     loop();
   </script>
+  <script src="animations.js"></script>
 </body>
 </html>

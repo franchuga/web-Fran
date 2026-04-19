@@ -5,64 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proyectos — Francesc Guillemat</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animations.css">
+  <style>
+    .img-zoom { cursor: zoom-in; transition: opacity 0.2s; }
+    .img-zoom:hover { opacity: 0.85; }
+    #lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85); z-index: 999;
+      align-items: center; justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+    #lightbox-close {
+      position: fixed; top: 1rem; right: 1.5rem;
+      font-size: 2rem; color: #fff; cursor: pointer; line-height: 1;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
-    <span class="navbar__logo">FGA</span>
+    <span class="navbar__logo">FG</span>
     <ul class="navbar__links">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="proyectos.html" class="active">Proyectos</a></li>
-      <li><a href="estudios.html">Estudios</a></li>
-      <li><a href="aficiones.html">Aficiones</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="game.html">Jugar</a></li>
+      <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
+      <li><a href="proyectos.html" class="active" data-i18n="nav.projects">Proyectos</a></li>
+      <li><a href="estudios.html" data-i18n="nav.studies">Estudios y Trabajo</a></li>
+      <li><a href="aficiones.html" data-i18n="nav.hobbies">Aficiones</a></li>
+      <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="contacto.html" data-i18n="nav.contact">Contacto</a></li>
     </ul>
+    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+    <button class="lang-toggle" onclick="openLangModal()" aria-label="Cambiar idioma"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
   </nav>
 
   <div class="page-header">
-    <h1><span>//</span> Proyectos</h1>
+    <h1><span>//</span> <span data-i18n="projects.heading">Proyectos</span></h1>
   </div>
 
   <main class="cards-grid">
 
-    <article class="card">
-      <h2 class="card__title">Web del Institut</h2>
-      <p class="card__desc">
-        Redisseny de la web del centre educatiu utilitzant WordPress.
-        Creació de la identitat visual, estructura de continguts i adaptació per a dispositius mobils.
-      </p>
-      <div class="badges">
-        <span class="badge">WordPress</span>
-        <span class="badge">CSS</span>
+    <article class="card card--wide">
+      <div class="card__wide-content">
+        <div class="card__wide-text">
+          <h2 class="card__title" data-i18n="projects.web.title">Actualización Web Instituto</h2>
+          <p class="card__desc" data-i18n-html="projects.web.desc">
+            En el curso 2024-2025 hicimos yo y 2 compañeros mas una implementación completa de la web del instituto. Preparando todo el backend y frontend, teniendo en cuenta lo visual y la seguridad.<br><br>
+            El objetivo principal fue crear una web más funcional, atractiva y responsiva, utilizando WordPress como nuevo sistema de gestión de contenidos. Este cambio permite integrar tecnologías modernas, facilitar el mantenimiento y asegurar un rendimiento óptimo para todos. El proyecto incluye un servidor Linux sin interfaz gráfica para simular un entorno de producción real.
+          </p>
+
+          <a href="pdf/Documentación_Web_Instituto.pdf" target="_blank" class="ver-link" data-i18n="projects.web.link">Ver Documentación</a>
+        </div>
+        <div class="card__wide-image">
+            <img src="/img/WebVidal.png" alt="Web del instituto" style="max-width: 300px; border-radius: 8px;">
+        </div>
       </div>
     </article>
 
-    <article class="card">
-      <h2 class="card__title">Sistema de Fitxatges</h2>
-      <p class="card__desc">
-        Aplicació de control de presencia que registra entrades i sortides i sincronitza les dades automaticament amb Google Sheets.
-      </p>
-      <div class="badges">
-        <span class="badge">JavaScript</span>
-        <span class="badge">Google Sheets API</span>
+    <article class="card card--wide">
+      <div class="card__wide-content">
+        <div class="card__wide-text">
+          <h2 class="card__title" data-i18n="projects.poka.title">Empresa IOT Poka</h2>
+          <p class="card__desc" data-i18n-html="projects.poka.desc">
+            En este proyecto implementamos tecnologías IOT para reducir el consumo de energía del centro. Utilizamos un ESP32 que está conectado al servidor que contiene el Node Red. Cuando detecta movimiento ilumina el led y hace que el buzzer emita un sonido. Además, envia una señal al servidor ISARD, donde está alojada la web de la empresa y se pueden ver en tiempo real los movimientos que detecte el sensor. Con la implementación de la tecnología IOT podremos reducir significativamente el consumo de energía en el instituto.
+          </p>
+
+          <a href="pdf/Documentacion_EmpresaIOT.pdf" target="_blank" class="ver-link" data-i18n="projects.poka.link">Ver Documentación</a>
+        </div>
+        <div class="card__wide-image">
+            <img src="/img/Proyecto_Poka.png" alt="Sensor IOT" style="max-width: 300px; border-radius: 8px;">
+        </div>
       </div>
     </article>
 
-    <article class="card">
-      <h2 class="card__title">App de Pedidos</h2>
-      <p class="card__desc">
-        Aplicacion de gestion de pedidos con interfaz de usuario, base de datos relacional y logica de negocio en backend.
-      </p>
-      <div class="badges">
-        <span class="badge">Java</span>
-        <span class="badge">SQL</span>
+    <article class="card card--wide">
+      <div class="card__wide-content">
+        <div class="card__wide-text">
+          <h2 class="card__title" data-i18n="projects.viorcam.title">Viorcam Pedidos</h2>
+          <p class="card__desc" data-i18n-html="projects.viorcam.desc">
+            En este proyecto me he centrado en solucionar un problema real y simple como puede ser la creación y organización de pedidos, en la empresa que lo he implementado se usaba papel y boligrafo para crear y apuntar los pedidos, ahora con el mismo programa puedes acceder a todo el catálogo y ver los precios en vivo mientras añades y creas pedidos para los clientes.<br><br>
+            Todo lo creado en la aplicación se almacena en una base de datos JSON que nos permite acceder a los pedidos creados en cualquier momento.
+          </p>
+        </div>
+        <div class="card__wide-image">
+            <img src="/img/Pedidos_Viorcam.png" alt="Viorcam Pedidos" style="max-width: 300px; border-radius: 8px;" class="img-zoom" onclick="openLightbox(this)">
+        </div>
       </div>
     </article>
 
   </main>
 
   <footer class="footer">
-    <p>Francesc Guillemat Arrabal &mdash; 2026</p>
+    <p data-i18n="footer">Francesc Guillemat Arrabal &mdash; 2026</p>
   </footer>
+
+  <div id="lightbox" onclick="closeLightbox()">
+    <span id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    function openLightbox(img) {
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+  <script src="theme.js"></script>
+  <script src="i18n.js"></script>
+  <script src="globe-modal.js"></script>
+  <script src="animations.js"></script>
 </body>
 </html>

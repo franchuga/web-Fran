@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Francesc Guillemat</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animations.css">
+  <style>
+    .error-wrap {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #physicsCanvas {
+      width: 100%;
+      flex: 1;
+      display: block;
+    }
+    .error-footer {
+      text-align: center;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .error-footer p {
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <span class="navbar__logo">FG</span>
+    <ul class="navbar__links">
+      <li><a href="index.html"    data-i18n="nav.home">Inicio</a></li>
+      <li><a href="proyectos.html" data-i18n="nav.projects">Proyectos</a></li>
+      <li><a href="estudios.html"  data-i18n="nav.studies">Estudios y Trabajo</a></li>
+      <li><a href="aficiones.html" data-i18n="nav.hobbies">Aficiones</a></li>
+      <li><a href="blog.html"      data-i18n="nav.blog">Blog</a></li>
+    </ul>
+    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+    <button class="lang-toggle" onclick="openLangModal()" aria-label="Cambiar idioma"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
+  </nav>
+
+  <div class="error-wrap">
+    <canvas id="physicsCanvas"></canvas>
+    <div class="error-footer">
+      <p>Página no encontrada &mdash; arrastra las letras</p>
+      <a href="index.html" class="btn btn-secondary">Volver al inicio</a>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script src="i18n.js"></script>
+  <script src="globe-modal.js"></script>
+  <script>
+  (function () {
+    const canvas = document.getElementById('physicsCanvas');
+    const ctx    = canvas.getContext('2d');
+    let W, H, dpr;
+
+    // ── Colours ──────────────────────────────────────────────────────────────
+    function accent() {
+      return document.documentElement.classList.contains('light') ? '#0969da' : '#58a6ff';
+    }
+    function textColor() {
+      return document.documentElement.classList.contains('light') ? '#24292f' : '#c9d1d9';
+    }
+    function bgColor() {
+      return document.documentElement.classList.contains('light') ? '#ffffff' : '#0d1117';
+    }
+
+    // ── Letter class ─────────────────────────────────────────────────────────
+    const GRAVITY     = 0.45;
+    const RESTITUTION = 0.52;
+    const FRICTION    = 0.88;
+    const AIR         = 0.992;
+
+    class Letter {
+      constructor(char, x, y) {
+        this.char  = char;
+        this.x     = x;
+        this.y     = y;
+        this.vx    = (Math.random() - 0.5) * 4;
+        this.vy    = Math.random() * -3 - 1;
+        this.angle = (Math.random() - 0.5) * 0.4;
+        this.av    = (Math.random() - 0.5) * 0.06;
+        this.r     = 0; // set on resize
+        this.fontSize = 0;
+        this.grabbed  = false;
+      }
+
+      update() {
+        if (this.grabbed) return;
+        this.vy += GRAVITY;
+        this.vx *= AIR;
+        this.vy *= AIR;
+        this.av *= 0.97;
+        this.x  += this.vx;
+        this.y  += this.vy;
+        this.angle += this.av;
+
+        // Floor
+        if (this.y + this.r > H) {
+          this.y  = H - this.r;
+          this.vy *= -RESTITUTION;
+          this.vx *= FRICTION;
+          this.av *= 0.75;
+          if (Math.abs(this.vy) < 1) this.vy = 0;
+        }
+        // Ceiling
+        if (this.y - this.r < 0) {
+          this.y  = this.r;
+          this.vy *= -RESTITUTION;
+        }
+        // Left wall
+        if (this.x - this.r < 0) {
+          this.x  = this.r;
+          this.vx *= -RESTITUTION;
+          this.av += (Math.random() - 0.5) * 0.08;
+        }
+        // Right wall
+        if (this.x + this.r > W) {
+          this.x  = W - this.r;
+          this.vx *= -RESTITUTION;
+          this.av += (Math.random() - 0.5) * 0.08;
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.font = `900 ${this.fontSize}px 'Courier New', monospace`;
+        ctx.textAlign    = 'center';
+        ctx.textBaseline = 'middle';
+        // Shadow / glow
+        ctx.shadowColor  = accent();
+        ctx.shadowBlur   = this.grabbed ? 28 : 14;
+        ctx.fillStyle    = this.grabbed ? accent() : textColor();
+        ctx.fillText(this.char, 0, 0);
+        ctx.restore();
+      }
+
+      // Hit test (rotated rect approximation)
+      contains(px, py) {
+        const cos = Math.cos(-this.angle), sin = Math.sin(-this.angle);
+        const dx  = px - this.x, dy = py - this.y;
+        const lx  = cos * dx - sin * dy;
+        const ly  = sin * dx + cos * dy;
+        return Math.abs(lx) < this.r * 0.75 && Math.abs(ly) < this.r * 0.65;
+      }
+    }
+
+    // ── Collision between two letters ────────────────────────────────────────
+    function collide(a, b) {
+      const dx   = b.x - a.x, dy = b.y - a.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const min  = a.r + b.r;
+      if (dist >= min || dist < 1) return;
+
+      const nx = dx / dist, ny = dy / dist;
+      const overlap = (min - dist) / 2;
+      if (!a.grabbed) { a.x -= nx * overlap; a.y -= ny * overlap; }
+      if (!b.grabbed) { b.x += nx * overlap; b.y += ny * overlap; }
+
+      const dvx = a.vx - b.vx, dvy = a.vy - b.vy;
+      const dot  = dvx * nx + dvy * ny;
+      if (dot >= 0) return;
+
+      const imp = -(1 + RESTITUTION) * dot / 2;
+      if (!a.grabbed) { a.vx += imp * nx; a.vy += imp * ny; a.av += (Math.random() - 0.5) * 0.12; }
+      if (!b.grabbed) { b.vx -= imp * nx; b.vy -= imp * ny; b.av += (Math.random() - 0.5) * 0.12; }
+    }
+
+    // ── Setup & resize ───────────────────────────────────────────────────────
+    let letters = [];
+
+    function resize() {
+      dpr = window.devicePixelRatio || 1;
+      W   = canvas.offsetWidth;
+      H   = canvas.offsetHeight;
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      ctx.scale(dpr, dpr);
+
+      const fs = Math.min(W / 4, H / 2.2, 180);
+      letters.forEach((l, i) => {
+        l.fontSize = fs;
+        l.r        = fs * 0.52;
+        // Re-clamp positions after resize
+        l.x = Math.max(l.r, Math.min(W - l.r, l.x));
+        l.y = Math.max(l.r, Math.min(H - l.r, l.y));
+      });
+    }
+
+    function init() {
+      const fs = Math.min(canvas.offsetWidth / 4, canvas.offsetHeight / 2.2, 180);
+      const r  = fs * 0.52;
+      const cx = canvas.offsetWidth  / 2;
+      const sy = -r; // start above canvas
+
+      letters = [
+        new Letter('4', cx - fs * 1.2, sy),
+        new Letter('0', cx,            sy * 1.5),
+        new Letter('4', cx + fs * 1.2, sy),
+      ];
+      letters.forEach(l => { l.fontSize = fs; l.r = r; });
+      resize();
+    }
+
+    window.addEventListener('resize', resize);
+
+    // ── Mouse / touch interaction ────────────────────────────────────────────
+    let grabbed  = null;
+    let mouseX   = 0, mouseY   = 0;
+    let prevX    = 0, prevY    = 0;
+    const HISTORY = 4;
+    const history = [];
+
+    function canvasXY(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
+      return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function pointerDown(cx, cy) {
+      const { x, y } = canvasXY(cx, cy);
+      for (let i = letters.length - 1; i >= 0; i--) {
+        if (letters[i].contains(x, y)) {
+          grabbed = letters[i];
+          grabbed.grabbed = true;
+          grabbed.vx = grabbed.vy = 0;
+          mouseX = x; mouseY = y;
+          history.length = 0;
+          break;
+        }
+      }
+    }
+
+    function pointerMove(cx, cy) {
+      const { x, y } = canvasXY(cx, cy);
+      prevX = mouseX; prevY = mouseY;
+      mouseX = x; mouseY = y;
+      history.push({ x, y, t: performance.now() });
+      if (history.length > HISTORY) history.shift();
+      if (grabbed) {
+        grabbed.x = x;
+        grabbed.y = y;
+      }
+      // Cursor
+      let over = false;
+      for (const l of letters) if (l.contains(x, y)) { over = true; break; }
+      canvas.style.cursor = grabbed ? 'grabbing' : over ? 'grab' : 'default';
+    }
+
+    function pointerUp() {
+      if (!grabbed) return;
+      if (history.length >= 2) {
+        const old = history[0];
+        const dt  = (performance.now() - old.t) / 16;
+        grabbed.vx = ((mouseX - old.x) / dt) * 0.6;
+        grabbed.vy = ((mouseY - old.y) / dt) * 0.6;
+      }
+      grabbed.av    = (Math.random() - 0.5) * 0.2;
+      grabbed.grabbed = false;
+      grabbed = null;
+      canvas.style.cursor = 'default';
+    }
+
+    canvas.addEventListener('mousedown', e => pointerDown(e.clientX, e.clientY));
+    window.addEventListener('mousemove', e => pointerMove(e.clientX, e.clientY));
+    window.addEventListener('mouseup',   pointerUp);
+
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); pointerDown(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+    canvas.addEventListener('touchmove',  e => { e.preventDefault(); pointerMove(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+    canvas.addEventListener('touchend',   e => { e.preventDefault(); pointerUp(); }, { passive: false });
+
+    // ── Render loop ──────────────────────────────────────────────────────────
+    function loop() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Subtle grid hint
+      ctx.strokeStyle = document.documentElement.classList.contains('light')
+        ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.03)';
+      ctx.lineWidth = 1;
+      const step = 48;
+      for (let x = 0; x < W; x += step) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+      for (let y = 0; y < H; y += step) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+      letters.forEach(l => l.update());
+      for (let i = 0; i < letters.length; i++)
+        for (let j = i + 1; j < letters.length; j++)
+          collide(letters[i], letters[j]);
+      letters.forEach(l => l.draw());
+
+      requestAnimationFrame(loop);
+    }
+
+    init();
+    loop();
+  })();
+  </script>
+  <script src="animations.js"></script>
+</body>
+</html>

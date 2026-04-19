@@ -5,74 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aficiones — Francesc Guillemat</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animations.css">
 </head>
 <body>
   <nav class="navbar">
-    <span class="navbar__logo">FGA</span>
+    <span class="navbar__logo">FG</span>
     <ul class="navbar__links">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="proyectos.html">Proyectos</a></li>
-      <li><a href="estudios.html">Estudios</a></li>
-      <li><a href="aficiones.html" class="active">Aficiones</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="game.html">Jugar</a></li>
+      <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
+      <li><a href="proyectos.html" data-i18n="nav.projects">Proyectos</a></li>
+      <li><a href="estudios.html" data-i18n="nav.studies">Estudios y Trabajo</a></li>
+      <li><a href="aficiones.html" class="active" data-i18n="nav.hobbies">Aficiones</a></li>
+      <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="contacto.html" data-i18n="nav.contact">Contacto</a></li>
     </ul>
+    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+    <button class="lang-toggle" onclick="openLangModal()" aria-label="Cambiar idioma"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
   </nav>
 
   <div class="page-header">
-    <h1><span>//</span> Aficiones</h1>
+    <h1><span>//</span> <span data-i18n="hobbies.heading">Aficiones</span></h1>
   </div>
 
   <main class="cards-grid">
 
     <article class="card">
-      <h2 class="card__title">Musica</h2>
-      <p class="card__desc">
-        M'agrada escoltar i descobrir musica de tot tipus. La musica em ajuda a concentrar-me mentre programo i es una de les meves vies d'evasio favorites.
+      <h2 class="card__title" data-i18n="hobbies.music.title">Musica</h2>
+      <p class="card__desc" data-i18n="hobbies.music.desc">
+        Me gusta escuchar música todo el tiempo que puedo. También escucho de todo tipo de géneros. Colecciono vinilos ya que creo que es la mejor manera de poder disftutar de la música y que sea tuya.
       </p>
       <div class="badges">
-        <span class="badge">Guitarra</span>
-        <span class="badge">Spotify</span>
+        <span class="badge">Música</span>
+        <span class="badge">Vinilos</span>
       </div>
     </article>
 
     <article class="card">
-      <h2 class="card__title">Gaming</h2>
-      <p class="card__desc">
-        Els videojocs han sigut una de les meves passions des de petit. M'interessen especialment els jocs que combinen narrativa i mecaniques de resolucio de problemes.
+      <h2 class="card__title" data-i18n="hobbies.coding.title">Programació</h2>
+      <p class="card__desc" data-i18n="hobbies.coding.desc">
+        Me gusta programar y crear cosas que puedan arreglar problemas o simplemente sean divertidas. Programo con Java principalmente, pero tambén pruebo otros lenguajes para saber un poco de todo.
       </p>
       <div class="badges">
-        <span class="badge">PC</span>
-        <span class="badge">Estrategia</span>
+        <span class="badge">Java</span>
       </div>
     </article>
 
     <article class="card">
-      <h2 class="card__title">Tecnologia</h2>
-      <p class="card__desc">
-        Mes enlla del que estudio, m'agrada explorar projectes open source, seguir novetats del sector i experimentar amb noves eines i tecnologies.
+      <h2 class="card__title" data-i18n="hobbies.tech.title">Tecnologia</h2>
+      <p class="card__desc" data-i18n="hobbies.tech.desc">
+        Me gusta provar diferentes tecnologias nuevas e informarme sobre ellas. También pruebo a ver los limites de la inteligencia artificial para aprender a sacar el máximo provecho y poder optimizar proyectos.
       </p>
       <div class="badges">
-        <span class="badge">Open Source</span>
-        <span class="badge">Hardware</span>
-      </div>
-    </article>
-
-    <article class="card">
-      <h2 class="card__title">Fotografia</h2>
-      <p class="card__desc">
-        La fotografia m'ensenya a veure el mon des d'una altra perspectiva. M'agrada especialment la fotografia de paisatges i d'arquitectura urbana.
-      </p>
-      <div class="badges">
-        <span class="badge">Paisatges</span>
-        <span class="badge">Urbana</span>
+        <span class="badge">IA</span>
       </div>
     </article>
 
   </main>
 
   <div class="page-header">
-    <h1><span>//</span> Recomendaciones</h1>
+    <h1><span>//</span> <span data-i18n="hobbies.recs">Recomendaciones</span></h1>
   </div>
 
   <main class="cards-grid">
@@ -80,14 +70,14 @@
     <article class="card card--wide">
       <div class="card__wide-content">
         <div class="card__wide-text">
-          <h2 class="card__title">Outer Wilds</h2>
-          <p class="card__desc">
+          <h2 class="card__title" data-i18n="hobbies.ow.title">Outer Wilds</h2>
+          <p class="card__desc" data-i18n-html="hobbies.ow.desc">
             Es uno de esos juegos que solo puedes jugar una vez en la vida. Vas aprendiendo como funciona un sistema entero, los secretos que esconde y la historia detras de cada rincón que exploras. Todo tiene sentido y es una gran red de incognitas y misterios. <br><br>
             Tiene uno de los finales mas emotivos, bonitos y emocionantes. Una experiencia que recomiendo a todo el mundo, disfrutad cada rincon y no dudeis en hablar con cada personaje y disfrutar de un malvadisco con ellos <br>
             22 minutos dan para mucho.
           </p>
 
-          <a href="https://www.mobiusdigitalgames.com/outer-wilds.html" target="_blank" class="ver-link">Ver Tienda Oficial</a>
+          <a href="https://www.mobiusdigitalgames.com/outer-wilds.html" target="_blank" class="ver-link" data-i18n="hobbies.ow.link">Ver Tienda Oficial</a>
           <div class="badges">
             <span class="badge">VideoJuego</span>
             <span class="badge">Espacio</span>
@@ -104,7 +94,11 @@
   </main>
 
   <footer class="footer">
-    <p>Francesc Guillemat Arrabal &mdash; 2026</p>
+    <p data-i18n="footer">Francesc Guillemat Arrabal &mdash; 2026</p>
   </footer>
+  <script src="theme.js"></script>
+  <script src="i18n.js"></script>
+  <script src="globe-modal.js"></script>
+  <script src="animations.js"></script>
 </body>
 </html>

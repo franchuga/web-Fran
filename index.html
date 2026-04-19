@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Francesc Guillemat — Desarrollador Web</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
     <style>
         .hero {
             flex: 1;
@@ -51,21 +52,23 @@
 
 <body>
     <nav class="navbar">
-        <span class="navbar__logo">FGA</span>
+        <span class="navbar__logo">FG</span>
         <ul class="navbar__links">
-            <li><a href="index.html" class="active">Inicio</a></li>
-            <li><a href="proyectos.html">Proyectos</a></li>
-            <li><a href="estudios.html">Estudios</a></li>
-            <li><a href="aficiones.html">Aficiones</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="game.html">Jugar</a></li>
+            <li><a href="index.html" class="active" data-i18n="nav.home">Inicio</a></li>
+            <li><a href="proyectos.html" data-i18n="nav.projects">Proyectos</a></li>
+            <li><a href="estudios.html" data-i18n="nav.studies">Estudios y Trabajo</a></li>
+            <li><a href="aficiones.html" data-i18n="nav.hobbies">Aficiones</a></li>
+            <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
+            <li><a href="contacto.html" data-i18n="nav.contact">Contacto</a></li>
         </ul>
+        <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+        <button class="lang-toggle" onclick="openLangModal()" aria-label="Cambiar idioma"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
     </nav>
 
     <main>
         <section class="hero">
             <h1 class="hero__name">Francesc Guillemat Arrabal</h1>
-            <p class="hero__title">Desarrollador de Aplicaciones Web</p>
+            <p class="hero__title" data-i18n="index.subtitle">Desarrollador de Aplicaciones Web</p>
             <div class="badges">
                 <span class="badge">HTML</span>
                 <span class="badge">CSS</span>
@@ -77,7 +80,7 @@
     </main>
 
     <footer class="footer">
-        <p>Francesc Guillemat Arrabal &mdash; 2026</p>
+        <p data-i18n="footer">Francesc Guillemat Arrabal &mdash; 2026</p>
     </footer>
 
     <canvas id="starsCanvas"
@@ -87,6 +90,7 @@
         const starsCanvas = document.getElementById('starsCanvas');
         const sCtx = starsCanvas.getContext('2d');
         let stars = [];
+        const CODE_CHARS = ['{', '}', '<', '>', '/', '=', '#', '*', ';', '(', ')', '&', '|', '=>', '//'];
 
         function resize() {
             starsCanvas.width = window.innerWidth;
@@ -102,7 +106,8 @@
                 size: Math.random() * 8 + 6,
                 alpha: 0,
                 phase: 'in',
-                speed: Math.random() * 0.008 + 0.004
+                speed: Math.random() * 0.008 + 0.004,
+                char: CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)]
             });
         }
 
@@ -113,6 +118,7 @@
 
         function tick() {
             sCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+            const isLight = document.documentElement.classList.contains('light');
 
             for (const s of stars) {
                 if (s.phase === 'in') {
@@ -122,9 +128,9 @@
                     s.alpha -= s.speed;
                 }
                 sCtx.globalAlpha = Math.max(0, s.alpha);
-                sCtx.fillStyle = '#ffffff';
+                sCtx.fillStyle = isLight ? '#57606a' : '#58a6ff';
                 sCtx.font = `${s.size}px monospace`;
-                sCtx.fillText('*', s.x, s.y);
+                sCtx.fillText(s.char, s.x, s.y);
             }
 
             sCtx.globalAlpha = 1;
@@ -135,6 +141,10 @@
         }
         tick();
     </script>
+    <script src="theme.js"></script>
+    <script src="i18n.js"></script>
+    <script src="globe-modal.js"></script>
+    <script src="animations.js"></script>
 </body>
 
 </html>

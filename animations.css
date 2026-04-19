@@ -1,0 +1,118 @@
+/* ── Scroll-reveal ──────────────────────────────────────────────── */
+.anim-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.anim-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Card hover: glow + lift ────────────────────────────────────── */
+.card {
+  transition: border-color 0.2s, box-shadow 0.25s, transform 0.25s;
+}
+.card:hover {
+  box-shadow: 0 0 0 1px var(--accent-dim), 0 8px 28px rgba(88, 166, 255, 0.12);
+  transform: translateY(-3px);
+}
+html.light .card:hover {
+  box-shadow: 0 0 0 1px var(--accent-dim), 0 8px 28px rgba(9, 105, 218, 0.09);
+}
+
+/* ── Navbar link underline slide ─────────────────────────────────── */
+.navbar__links a {
+  position: relative;
+}
+.navbar__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.22s ease;
+}
+.navbar__links a:hover::after,
+.navbar__links a.active::after {
+  width: 100%;
+}
+
+/* ── Navbar logo hover ───────────────────────────────────────────── */
+.navbar__logo {
+  display: inline-block;
+  transition: color 0.2s, letter-spacing 0.25s;
+}
+.navbar__logo:hover {
+  color: var(--text);
+  letter-spacing: 3px;
+}
+
+/* ── Blinking cursor ─────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.typing-cursor::after {
+  content: '_';
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
+/* ── Timeline dot pulse ──────────────────────────────────────────── */
+@keyframes dot-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.55); }
+  70%  { box-shadow: 0 0 0 9px rgba(88, 166, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0); }
+}
+@keyframes dot-pulse-light {
+  0%   { box-shadow: 0 0 0 0 rgba(9, 105, 218, 0.45); }
+  70%  { box-shadow: 0 0 0 9px rgba(9, 105, 218, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(9, 105, 218, 0); }
+}
+.timeline-item.visible::before {
+  animation: dot-pulse 1.4s ease-out;
+}
+html.light .timeline-item.visible::before {
+  animation: dot-pulse-light 1.4s ease-out;
+}
+
+/* ── Page fade-in ────────────────────────────────────────────────── */
+@keyframes page-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+main {
+  animation: page-in 0.3s ease;
+}
+
+/* ── Hero entrance ───────────────────────────────────────────────── */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero__name   { animation: hero-in 0.55s ease 0.1s backwards; }
+.hero__title  { animation: hero-in 0.55s ease 0.3s backwards; }
+.hero .badges { animation: hero-in 0.55s ease 0.65s backwards; }
+
+/* ── Hero badge pop-in ───────────────────────────────────────────── */
+@keyframes badge-pop {
+  0%   { transform: scale(0.65); opacity: 0; }
+  65%  { transform: scale(1.1); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+.hero .badge {
+  animation: badge-pop 0.35s ease backwards;
+}
+
+/* ── Form field focus glow ───────────────────────────────────────── */
+.form-group input:focus,
+.form-group textarea:focus {
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+html.light .form-group input:focus,
+html.light .form-group textarea:focus {
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.12);
+}

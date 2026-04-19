@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto — Francesc Guillemat</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="navbar__logo">FG</span>
+    <ul class="navbar__links">
+      <li><a href="index.html" data-i18n="nav.home">Inicio</a></li>
+      <li><a href="proyectos.html" data-i18n="nav.projects">Proyectos</a></li>
+      <li><a href="estudios.html" data-i18n="nav.studies">Estudios y Trabajo</a></li>
+      <li><a href="aficiones.html" data-i18n="nav.hobbies">Aficiones</a></li>
+      <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="contacto.html" class="active" data-i18n="nav.contact">Contacto</a></li>
+    </ul>
+    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+    <button class="lang-toggle" onclick="openLangModal()" aria-label="Cambiar idioma"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
+  </nav>
+
+  <div class="page-header">
+    <h1><span>//</span> <span data-i18n="contact.heading">Contacto</span></h1>
+  </div>
+
+  <div class="contact-wrap">
+    <p class="contact-intro" data-i18n="contact.intro">
+      Si quieres ponerte en contacto conmigo, rellena el formulario y te responderé lo antes posible.
+    </p>
+
+    <form id="contactForm" novalidate>
+      <div class="form-group">
+        <label for="contactName" data-i18n="contact.label.name">Nombre</label>
+        <input
+          type="text"
+          id="contactName"
+          name="name"
+          required
+          data-i18n-placeholder="contact.ph.name"
+          placeholder="Tu nombre"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="contactEmail" data-i18n="contact.label.email">Correo electrónico</label>
+        <input
+          type="email"
+          id="contactEmail"
+          name="email"
+          required
+          data-i18n-placeholder="contact.ph.email"
+          placeholder="tu@correo.com"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="contactSubject" data-i18n="contact.label.subject">Asunto</label>
+        <input
+          type="text"
+          id="contactSubject"
+          name="_subject"
+          required
+          data-i18n-placeholder="contact.ph.subject"
+          placeholder="Asunto del mensaje"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="contactMsg" data-i18n="contact.label.msg">Mensaje</label>
+        <textarea
+          id="contactMsg"
+          name="message"
+          required
+          data-i18n-placeholder="contact.ph.msg"
+          placeholder="Escribe tu mensaje aquí..."
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="contactSubmit" data-i18n="contact.submit">
+        Enviar mensaje
+      </button>
+
+      <div class="contact-feedback" id="contactFeedback"></div>
+    </form>
+  </div>
+
+  <footer class="footer">
+    <p data-i18n="footer">Francesc Guillemat Arrabal &mdash; 2026</p>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script src="i18n.js"></script>
+  <script src="globe-modal.js"></script>
+  <script>
+  (function () {
+    const form     = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('contactSubmit');
+    const feedback = document.getElementById('contactFeedback');
+
+    function getMsg(key) {
+      if (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[key]) {
+        const lang = (typeof getLang === 'function') ? getLang() : 'es';
+        return TRANSLATIONS[key][lang] || TRANSLATIONS[key]['es'];
+      }
+      return key;
+    }
+
+    document.addEventListener('langchange', () => {
+      if (feedback.classList.contains('success')) {
+        feedback.textContent = getMsg('contact.success');
+      }
+    });
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = getMsg('contact.sending');
+      feedback.className = 'contact-feedback';
+      feedback.textContent = '';
+
+      const data = {
+        name:    document.getElementById('contactName').value,
+        email:   document.getElementById('contactEmail').value,
+        _subject: document.getElementById('contactSubject').value,
+        message: document.getElementById('contactMsg').value,
+      };
+
+      try {
+        const res  = await fetch('https://formsubmit.co/ajax/francescguillematarrabal@gmail.com', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body:    JSON.stringify(data),
+        });
+
+        const json = await res.json();
+        console.log('[FormSubmit response]', json);
+
+        if (res.ok && json.success === 'true') {
+          feedback.textContent = getMsg('contact.success');
+          feedback.className = 'contact-feedback success';
+          form.reset();
+        } else {
+          throw new Error(json.message || 'server error');
+        }
+      } catch (err) {
+        console.error('[FormSubmit error]', err);
+        feedback.textContent = getMsg('contact.error');
+        feedback.className = 'contact-feedback error';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = getMsg('contact.submit');
+      }
+    });
+  })();
+  </script>
+  <script src="animations.js"></script>
+</body>
+</html>
