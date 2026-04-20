@@ -6,6 +6,7 @@
   <title>404 — Francesc Guillemat</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="animations.css">
+  <script src="components/site-header.js"></script>
   <style>
     .error-wrap {
       flex: 1;
@@ -35,23 +36,28 @@
       font-size: 0.82rem;
       margin: 0;
     }
+    .error-title {
+      position: absolute;
+      top: 62%;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      opacity: 0.45;
+      pointer-events: none;
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <span class="navbar__logo">FG</span>
-    <ul class="navbar__links">
-      <li><a href="index.html"    data-i18n="nav.home">Inicio</a></li>
-      <li><a href="proyectos.html" data-i18n="nav.projects">Proyectos</a></li>
-      <li><a href="estudios.html"  data-i18n="nav.studies">Estudios y Trabajo</a></li>
-      <li><a href="aficiones.html" data-i18n="nav.hobbies">Aficiones</a></li>
-      <li><a href="blog.html"      data-i18n="nav.blog">Blog</a></li>
-    </ul>
-    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
-    <button class="lang-toggle" onclick="openLangModal()" aria-label="Cambiar idioma"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
-  </nav>
+  <site-header></site-header>
 
   <div class="error-wrap">
+    <span class="error-title">No encontrado</span>
     <canvas id="physicsCanvas"></canvas>
     <div class="error-footer">
       <p>Página no encontrada &mdash; arrastra las letras</p>
@@ -90,17 +96,19 @@
         this.char  = char;
         this.x     = x;
         this.y     = y;
-        this.vx    = (Math.random() - 0.5) * 4;
-        this.vy    = Math.random() * -3 - 1;
-        this.angle = (Math.random() - 0.5) * 0.4;
-        this.av    = (Math.random() - 0.5) * 0.06;
-        this.r     = 0; // set on resize
+        this.vx    = 0;
+        this.vy    = 0;
+        this.angle = 0;
+        this.av    = 0;
+        this.r     = 0;
         this.fontSize = 0;
         this.grabbed  = false;
+        this.active   = false;
       }
 
       update() {
         if (this.grabbed) return;
+        if (!this.active) return;
         this.vy += GRAVITY;
         this.vx *= AIR;
         this.vy *= AIR;
@@ -143,9 +151,8 @@
         ctx.font = `900 ${this.fontSize}px 'Courier New', monospace`;
         ctx.textAlign    = 'center';
         ctx.textBaseline = 'middle';
-        // Shadow / glow
         ctx.shadowColor  = accent();
-        ctx.shadowBlur   = this.grabbed ? 28 : 14;
+        ctx.shadowBlur   = this.grabbed ? 8 : 0;
         ctx.fillStyle    = this.grabbed ? accent() : textColor();
         ctx.fillText(this.char, 0, 0);
         ctx.restore();
@@ -207,12 +214,12 @@
       const fs = Math.min(canvas.offsetWidth / 4, canvas.offsetHeight / 2.2, 180);
       const r  = fs * 0.52;
       const cx = canvas.offsetWidth  / 2;
-      const sy = -r; // start above canvas
+      const cy = canvas.offsetHeight / 2;
 
       letters = [
-        new Letter('4', cx - fs * 1.2, sy),
-        new Letter('0', cx,            sy * 1.5),
-        new Letter('4', cx + fs * 1.2, sy),
+        new Letter('4', cx - fs * 1.2, cy),
+        new Letter('0', cx,            cy),
+        new Letter('4', cx + fs * 1.2, cy),
       ];
       letters.forEach(l => { l.fontSize = fs; l.r = r; });
       resize();
@@ -238,6 +245,7 @@
         if (letters[i].contains(x, y)) {
           grabbed = letters[i];
           grabbed.grabbed = true;
+          grabbed.active  = true;
           grabbed.vx = grabbed.vy = 0;
           mouseX = x; mouseY = y;
           history.length = 0;

@@ -7,6 +7,8 @@
     <title>Francesc Guillemat — Desarrollador Web</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animations.css">
+    <script src="components/site-header.js"></script>
+    <script src="components/site-footer.js"></script>
     <style>
         .hero {
             flex: 1;
@@ -47,41 +49,603 @@
             justify-content: center;
             margin-top: 0.5rem;
         }
+
+        /* ── About section ── */
+        .about-section {
+            padding: 0 2rem 5rem;
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+        }
+
+        .about-text h2 {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0 0 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .about-text h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .about-text p {
+            color: var(--text-dim);
+            font-size: 0.88rem;
+            line-height: 1.85;
+            margin: 0;
+        }
+
+        .about-facts {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .about-fact {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 0.85rem 1.1rem;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+
+        .about-fact:last-child {
+            border-bottom: none;
+        }
+
+        .about-fact:hover {
+            background: rgba(88, 166, 255, 0.05);
+        }
+
+        .about-fact svg {
+            width: 16px;
+            height: 16px;
+            color: var(--accent);
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .about-fact__label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            opacity: 0.5;
+            width: 70px;
+            flex-shrink: 0;
+        }
+
+        .about-fact__value {
+            font-size: 0.84rem;
+            color: var(--text);
+        }
+
+        .about-fact__value a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.15s;
+        }
+
+        .about-fact__value a:hover {
+            opacity: 0.75;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .about-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* ── Projects preview ── */
+        .preview-section {
+            padding: 0 2rem 5rem;
+            max-width: 860px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-label {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        .preview-link {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .preview-link:hover {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .preview-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .preview-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .preview-card__icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+            opacity: 0.7;
+        }
+
+        .preview-card__title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .preview-card__desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            flex: 1;
+            margin: 0;
+        }
+
+        .preview-card__link {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.15s;
+            margin-top: 0.25rem;
+        }
+
+        .preview-card__link:hover {
+            opacity: 0.7;
+            text-decoration: none;
+        }
+
+        @media (max-width: 640px) {
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── CTA closing ── */
+        .cta-section {
+            padding: 4rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cta-label {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        .cta-heading {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 800;
+            color: var(--text);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .cta-sub {
+            color: var(--text-dim);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin: 0 0 0.5rem;
+        }
+
+        /* ── Skills section ── */
+        .skills-section {
+            padding: 0 2rem 4rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skills-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--border);
+            margin: 0 auto 2.5rem;
+        }
+
+        .skills-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            opacity: 0.4;
+            margin: 0 0 2rem;
+        }
+
+        .skills-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg);
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.2s, background 0.2s;
+            cursor: default;
+            min-width: 70px;
+        }
+
+        .skill-item.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent);
+            background: rgba(88, 166, 255, 0.05);
+        }
+
+        .skill-icon {
+            width: 28px;
+            height: 28px;
+            color: var(--text-dim);
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .skill-item:hover .skill-icon {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .skill-name {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            transition: color 0.2s;
+        }
+
+        .skill-item:hover .skill-name {
+            color: var(--accent);
+        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar">
-        <span class="navbar__logo">FG</span>
-        <ul class="navbar__links">
-            <li><a href="index.html" class="active" data-i18n="nav.home">Inicio</a></li>
-            <li><a href="proyectos.html" data-i18n="nav.projects">Proyectos</a></li>
-            <li><a href="estudios.html" data-i18n="nav.studies">Estudios y Trabajo</a></li>
-            <li><a href="aficiones.html" data-i18n="nav.hobbies">Aficiones</a></li>
-            <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
-            <li><a href="contacto.html" data-i18n="nav.contact">Contacto</a></li>
-        </ul>
-        <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
-        <button class="lang-toggle" onclick="openLangModal()" aria-label="Cambiar idioma"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
-    </nav>
+    <site-header active="home"></site-header>
 
     <main>
         <section class="hero">
             <h1 class="hero__name">Francesc Guillemat Arrabal</h1>
             <p class="hero__title" data-i18n="index.subtitle">Desarrollador de Aplicaciones Web</p>
-            <div class="badges">
-                <span class="badge">HTML</span>
-                <span class="badge">CSS</span>
-                <span class="badge">JavaScript</span>
-                <span class="badge">SQL</span>
-                <span class="badge">Java</span>
+            <div class="hero__actions">
+                <a href="proyectos.html" class="btn btn-primary">Ver proyectos</a>
+                <a href="contacto.html" class="btn btn-secondary">Contactar</a>
             </div>
+        </section>
+
+        <section class="skills-section">
+            <p class="skills-label">Tecnologias</p>
+            <div class="skills-grid">
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
+                    </svg>
+                    <span class="skill-name">HTML</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1" />
+                        <path d="M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1" />
+                    </svg>
+                    <span class="skill-name">CSS</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <text x="12" y="16.5" text-anchor="middle" font-family="monospace" font-weight="700"
+                            font-size="9" fill="currentColor" stroke="none">JS</text>
+                    </svg>
+                    <span class="skill-name">JavaScript</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <ellipse cx="12" cy="5" rx="9" ry="3" />
+                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                    </svg>
+                    <span class="skill-name">SQL</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                        <line x1="6" y1="1" x2="6" y2="4" />
+                        <line x1="10" y1="1" x2="10" y2="4" />
+                        <line x1="14" y1="1" x2="14" y2="4" />
+                    </svg>
+                    <span class="skill-name">Java</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="6" y1="3" x2="6" y2="15" />
+                        <circle cx="18" cy="6" r="3" />
+                        <circle cx="6" cy="18" r="3" />
+                        <path d="M18 9a9 9 0 0 1-9 9" />
+                    </svg>
+                    <span class="skill-name">Git</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                    </svg>
+                    <span class="skill-name">GitHub</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" />
+                        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+                    </svg>
+                    <span class="skill-name">MongoDB</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12 2C9 2 7 4 7 7v2h5v1H7c-2.5 0-4 1.5-4 4s1.5 4 4 4h1v-2H7c-1 0-2-.9-2-2s1-2 2-2h5V9c0-2.5-1.5-4-4-4H9c-.6 0-1 .4-1 1s.4 1 1 1h1c1 0 2 .9 2 2" />
+                        <path
+                            d="M12 22c3 0 5-2 5-5v-2h-5v-1h5c2.5 0 4-1.5 4-4s-1.5-4-4-4h-1v2h1c1 0 2 .9 2 2s-1 2-2 2h-5v5c0 2.5 1.5 4 4 4h1c.6 0 1-.4 1-1s-.4-1-1-1h-1c-1 0-2-.9-2-2" />
+                    </svg>
+                    <span class="skill-name">Python</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22V12" />
+                        <path d="M12 12C7 12 3 8.5 3 4c3 0 6 1.5 9 4z" />
+                        <path d="M12 12c5 0 9-3.5 9-8-3 0-6 1.5-9 4z" />
+                    </svg>
+                    <span class="skill-name">Spring</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <polyline points="9 15 11 13 9 11" />
+                        <line x1="13" y1="15" x2="15" y2="15" />
+                    </svg>
+                    <span class="skill-name">XML</span>
+                </div>
+
+                <div class="skill-item">
+                    <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 3H7a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4c0 1.1.9 2 2 2h1" />
+                        <path d="M16 3h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-1" />
+                        <circle cx="12" cy="12" r="1" fill="currentColor" />
+                    </svg>
+                    <span class="skill-name">JSON</span>
+                </div>
+
+            </div>
+        </section>
+        <section class="about-section">
+            <div class="about-inner">
+
+                <div class="about-text">
+                    <h2>Sobre mi</h2>
+                    <p>Soy Francesc Guillemat, un estudiante de DAW, estoy centrado en la creación de páginas web o
+                        programas. También realizo tareas de mantenimiento o administración de servicios al igual que
+                        aplicaciones web a medida para solucionar problemas o necesidades.<br>
+                        En lo personal, me centro siempre en dar el mejor resultado para el cliente y que este
+                        satisfecho. Soy una persona paciente dispuesta a hacer lo posible por ayudar y resolver
+                        problemas.
+                    </p>
+                </div>
+
+                <div class="about-facts">
+                    <div class="about-fact">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <span class="about-fact__label">Ubicacion</span>
+                        <span class="about-fact__value">Tarragona</span>
+                    </div>
+                    <div class="about-fact">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
+                        <span class="about-fact__label">Edad</span>
+                        <span class="about-fact__value">18</span>
+                    </div>
+                    <div class="about-fact">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                        <span class="about-fact__label">Idiomas</span>
+                        <span class="about-fact__value">Català, Castellano, Inglés</span>
+                    </div>
+                    <div class="about-fact">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                            <path d="M16 3l-4 4-4-4" />
+                        </svg>
+                        <span class="about-fact__label">Rol</span>
+                        <span class="about-fact__value">Desarrollador Web</span>
+                    </div>
+                    <div class="about-fact">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                        </svg>
+                        <span class="about-fact__label">GitHub</span>
+                        <span class="about-fact__value"><a href="https://github.com/franchuga" target="_blank" rel="noopener">franchuga</a></span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="preview-section">
+            <div class="preview-header">
+                <p class="preview-label">Proyectos destacados</p>
+                <a href="proyectos.html" class="preview-link">Ver todos &rarr;</a>
+            </div>
+            <div class="preview-grid">
+
+                <article class="preview-card">
+                    <div class="preview-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="preview-card__title">Actualizacion Web Instituto</h3>
+                    <p class="preview-card__desc">Implementacion completa de la web del instituto con WordPress, backend Linux y enfoque en seguridad y rendimiento.</p>
+                    <a href="proyectos.html" class="preview-card__link">Ver proyecto &rarr;</a>
+                </article>
+
+                <article class="preview-card">
+                    <div class="preview-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 3l-4 4-4-4"/>
+                        </svg>
+                    </div>
+                    <h3 class="preview-card__title">Empresa IOT Poka</h3>
+                    <p class="preview-card__desc">Sistema IOT con ESP32 y Node-RED para reducir el consumo energetico del centro, con dashboard en tiempo real.</p>
+                    <a href="proyectos.html" class="preview-card__link">Ver proyecto &rarr;</a>
+                </article>
+
+                <article class="preview-card">
+                    <div class="preview-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/>
+                        </svg>
+                    </div>
+                    <h3 class="preview-card__title">Viorcam Pedidos</h3>
+                    <p class="preview-card__desc">Aplicacion de gestion de pedidos para empresa real, sustituyendo el papel por un sistema digital con catalogo y precios en vivo.</p>
+                    <a href="proyectos.html" class="preview-card__link">Ver proyecto &rarr;</a>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <p class="cta-label">Contacto</p>
+            <h2 class="cta-heading">Tienes un proyecto en mente?</h2>
+            <p class="cta-sub">Estoy disponible para proyectos freelance, practicas o colaboraciones. Hablamos.</p>
+            <a href="contacto.html" class="btn btn-primary">Escribeme</a>
         </section>
     </main>
 
-    <footer class="footer">
-        <p data-i18n="footer">Francesc Guillemat Arrabal &mdash; 2026</p>
-    </footer>
+    <site-footer></site-footer>
 
     <canvas id="starsCanvas"
         style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
@@ -140,6 +704,21 @@
             requestAnimationFrame(tick);
         }
         tick();
+    </script>
+    <script>
+        const skillItems = document.querySelectorAll('.skill-item');
+        const skillObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    skillObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        skillItems.forEach((item, i) => {
+            item.style.transitionDelay = `${i * 90}ms`;
+            skillObserver.observe(item);
+        });
     </script>
     <script src="theme.js"></script>
     <script src="i18n.js"></script>
