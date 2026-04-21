@@ -7,7 +7,6 @@ class SiteHeader extends HTMLElement {
       { key: 'projects', href: 'proyectos.html', i18n: 'nav.projects', label: 'Proyectos' },
       { key: 'studies',  href: 'estudios.html',  i18n: 'nav.studies',  label: 'Estudios y Trabajo' },
       { key: 'hobbies',  href: 'aficiones.html', i18n: 'nav.hobbies',  label: 'Aficiones' },
-      { key: 'blog',     href: 'blog.html',      i18n: 'nav.blog',     label: 'Blog' },
       { key: 'contact',  href: 'contacto.html',  i18n: 'nav.contact',  label: 'Contacto' },
     ];
 

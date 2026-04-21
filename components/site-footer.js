@@ -17,7 +17,6 @@ class SiteFooter extends HTMLElement {
           <li><a href="proyectos.html"  data-i18n="nav.projects">Proyectos</a></li>
           <li><a href="estudios.html"   data-i18n="nav.studies">Estudios y Trabajo</a></li>
           <li><a href="aficiones.html"  data-i18n="nav.hobbies">Aficiones</a></li>
-          <li><a href="blog.html"       data-i18n="nav.blog">Blog</a></li>
           <li><a href="contacto.html"   data-i18n="nav.contact">Contacto</a></li>
         </ul>
       </div>

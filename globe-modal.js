@@ -1,13 +1,18 @@
 // 3D Globe language selector
 (function () {
+  const SENYERA = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 27"><rect width="40" height="27" fill="#FCDD09"/><rect y="3" width="40" height="3" fill="#DA121A"/><rect y="9" width="40" height="3" fill="#DA121A"/><rect y="15" width="40" height="3" fill="#DA121A"/><rect y="21" width="40" height="3" fill="#DA121A"/></svg>');
+
   const COUNTRIES = [
-    { id: 'es', code: 'es', label: 'Español',   lat:  40.4, lon:  -3.7  },
-    { id: 'en', code: 'us', label: 'English',   lat:  38.0, lon:  -97.0 },
-    { id: 'fr', code: 'fr', label: 'Français',  lat:  46.2, lon:   2.3  },
-    { id: 'de', code: 'de', label: 'Deutsch',   lat:  51.2, lon:  10.5  },
-    { id: 'pt', code: 'br', label: 'Português', lat: -10.0, lon:  -51.9 },
+    { id: 'es', label: 'Español',   lat:  40.4, lon:  -3.7,  flagUrl: 'https://flagcdn.com/w40/es.png' },
+    { id: 'en', label: 'English',   lat:  38.0, lon:  -97.0, flagUrl: 'https://flagcdn.com/w40/us.png' },
+    { id: 'fr', label: 'Français',  lat:  46.2, lon:   2.3,  flagUrl: 'https://flagcdn.com/w40/fr.png' },
+    { id: 'de', label: 'Deutsch',   lat:  51.2, lon:  10.5,  flagUrl: 'https://flagcdn.com/w40/de.png' },
+    { id: 'it', label: 'Italiano',  lat:  41.9, lon:  12.5,  flagUrl: 'https://flagcdn.com/w40/it.png' },
+    { id: 'ca', label: 'Català',    lat:  41.4, lon:   2.0,  flagUrl: SENYERA                          },
+    { id: 'zh', label: '中文',       lat:  35.9, lon: 104.2,  flagUrl: 'https://flagcdn.com/w40/cn.png' },
+    { id: 'ja', label: '日本語',     lat:  36.2, lon: 138.3,  flagUrl: 'https://flagcdn.com/w40/jp.png' },
+    { id: 'pt', label: 'Português', lat: -10.0, lon:  -51.9, flagUrl: 'https://flagcdn.com/w40/br.png' },
   ];
-  const FLAG_URL = code => `https://flagcdn.com/w40/${code}.png`;
 
   const THREE_URL = 'https://unpkg.com/three@0.160.0/build/three.min.js';
   const EARTH_TEX = 'https://unpkg.com/three-globe/example/img/earth-day.jpg';
@@ -53,6 +58,10 @@
           <button class="lang-modal__flag" data-lang="en"><img src="https://flagcdn.com/w20/gb.png" alt=""> English</button>
           <button class="lang-modal__flag" data-lang="fr"><img src="https://flagcdn.com/w20/fr.png" alt=""> Français</button>
           <button class="lang-modal__flag" data-lang="de"><img src="https://flagcdn.com/w20/de.png" alt=""> Deutsch</button>
+          <button class="lang-modal__flag" data-lang="it"><img src="https://flagcdn.com/w20/it.png" alt=""> Italiano</button>
+          <button class="lang-modal__flag" data-lang="ca"><img src="${SENYERA}" alt=""> Català</button>
+          <button class="lang-modal__flag" data-lang="zh"><img src="https://flagcdn.com/w20/cn.png" alt=""> 中文</button>
+          <button class="lang-modal__flag" data-lang="ja"><img src="https://flagcdn.com/w20/jp.png" alt=""> 日本語</button>
           <button class="lang-modal__flag" data-lang="pt"><img src="https://flagcdn.com/w20/pt.png" alt=""> Português</button>
         </div>
       </div>`;
@@ -128,7 +137,7 @@
 
       const el = document.createElement('img');
       el.className = 'globe-flag-pin';
-      el.src = FLAG_URL(c.code);
+      el.src = c.flagUrl;
       el.alt = c.label;
       el.title = c.label;
       canvasWrap.appendChild(el);
