@@ -739,3 +739,12 @@ a:hover { text-decoration: underline; }
     font-size: 0.78rem;
     caret-color: var(--accent);
 }
+
+.terminal__input:focus {
+    outline: none;
+}
+
+.terminal:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--accent);
+}
