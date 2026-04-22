@@ -13,7 +13,7 @@ Showcase / experimentacion tecnica. La terminal es el portfolio en si misma: dem
 
 El widget vive en la seccion `.hero` de `index.html`, debajo del nombre y subtitulo, en lugar de los botones CTA actuales. Los botones CTA se eliminan del hero (la llamada a contacto ya existe en la seccion `.cta-section` mas abajo).
 
-En movil (< 600px) el widget ocupa el ancho completo.
+En movil (< 600px) el widget ocupa el ancho completo y puede ocultarse/mostrarse con un boton toggle ("[ terminal ]" / "[ ocultar ]") que aparece encima del widget. Por defecto el widget aparece visible al cargar. El estado (visible/oculto) no se persiste entre sesiones.
 
 ## Archivos afectados
 
@@ -128,7 +128,7 @@ Sin autenticacion — limite de 60 peticiones/hora por IP, suficiente para un po
 
 ### Foco automatico
 
-Al cargar la pagina, `termInput.focus()`. El input es invisible para el usuario (esta dentro del widget) pero recibe el teclado directamente. En movil, el foco automatico se omite para no abrir el teclado virtual al entrar.
+Al cargar la pagina, `termInput.focus()`. El input es invisible para el usuario (esta dentro del widget) pero recibe el teclado directamente. En movil, el foco automatico se omite para no abrir el teclado virtual al entrar. En movil se renderiza un boton toggle encima del widget (solo visible en < 600px via media query) que hace `display:none` / `display:block` sobre `.terminal`. El boton cambia su texto entre "[ terminal ]" y "[ ocultar ]".
 
 ### Mensaje de bienvenida
 
