@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estilo de cursor</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  h2 { font-size: 1.3rem; font-weight: 700; color: #c9d1d9; }
+  p.sub { font-size: 0.85rem; color: #8b949e; margin-top: 0.4rem; text-align: center; }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 860px;
+  }
+
+  .card {
+    background: #161b22;
+    border: 2px solid #21262d;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .card:hover { border-color: #58a6ff; transform: translateY(-2px); }
+  .card.selected { border-color: #58a6ff; background: rgba(88,166,255,0.07); }
+
+  .card-preview {
+    height: 160px;
+    background: #010409;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-body { padding: 1.1rem 1.25rem; }
+  .card-body h3 { font-size: 0.92rem; font-weight: 700; color: #c9d1d9; margin-bottom: 0.4rem; }
+  .card-body p { font-size: 0.78rem; color: #8b949e; line-height: 1.6; }
+
+  /* ── Cursor demos ── */
+
+  /* A: simple dot */
+  .demo-a .cursor-dot {
+    width: 8px; height: 8px;
+    background: #58a6ff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px #58a6ff;
+  }
+
+  /* B: dot + ring */
+  .demo-b .cursor-dot {
+    width: 6px; height: 6px;
+    background: #58a6ff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .demo-b .cursor-ring {
+    width: 28px; height: 28px;
+    border: 1.5px solid rgba(88,166,255,0.5);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; left: calc(50% + 10px);
+    transform: translate(-50%, -50%);
+  }
+
+  /* C: trail */
+  .demo-c .trail-dot {
+    width: 6px; height: 6px;
+    background: #58a6ff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .demo-c .trail-dot:nth-child(1) { opacity: 1; left: 50%; }
+  .demo-c .trail-dot:nth-child(2) { opacity: 0.5; left: 44%; width: 5px; height: 5px; }
+  .demo-c .trail-dot:nth-child(3) { opacity: 0.25; left: 38%; width: 4px; height: 4px; }
+  .demo-c .trail-dot:nth-child(4) { opacity: 0.1; left: 33%; width: 3px; height: 3px; }
+
+  /* D: crosshair */
+  .demo-d::before, .demo-d::after {
+    content: '';
+    position: absolute;
+    background: rgba(88,166,255,0.4);
+  }
+  .demo-d::before { width: 1px; height: 100%; left: 50%; top: 0; }
+  .demo-d::after  { height: 1px; width: 100%; top: 50%; left: 0; }
+  .demo-d .cursor-center {
+    width: 8px; height: 8px;
+    background: #58a6ff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  .pick-label {
+    font-family: monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #58a6ff;
+    margin-top: 0.5rem;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<h2>Que estilo de cursor personalizado prefieres?</h2>
+<p class="sub">El cursor nativo desaparece y se reemplaza por el que elijas. Solo en desktop.</p>
+
+<div class="cards">
+
+  <div class="card" onclick="select(this,'dot')">
+    <div class="card-preview demo-a">
+      <div class="cursor-dot"></div>
+    </div>
+    <div class="card-body">
+      <span class="pick-label">A</span>
+      <h3>Dot simple</h3>
+      <p>Punto pequeño con glow azul. Limpio y minimalista. Sigue el raton exactamente.</p>
+    </div>
+  </div>
+
+  <div class="card" onclick="select(this,'dot-ring')">
+    <div class="card-preview demo-b">
+      <div class="cursor-dot"></div>
+      <div class="cursor-ring"></div>
+    </div>
+    <div class="card-body">
+      <span class="pick-label">B</span>
+      <h3>Dot + anillo con lag</h3>
+      <p>Punto preciso + anillo que sigue con un ligero retraso. El efecto mas comun en portfolios.</p>
+    </div>
+  </div>
+
+  <div class="card" onclick="select(this,'trail')">
+    <div class="card-preview demo-c">
+      <div class="trail-dot"></div>
+      <div class="trail-dot"></div>
+      <div class="trail-dot"></div>
+      <div class="trail-dot"></div>
+    </div>
+    <div class="card-body">
+      <span class="pick-label">C</span>
+      <h3>Trail (estela)</h3>
+      <p>Deja una estela de puntos que se desvanecen. Mas llamativo, encaja con el fondo de simbolos.</p>
+    </div>
+  </div>
+
+  <div class="card" onclick="select(this,'crosshair')">
+    <div class="card-preview demo-d">
+      <div class="cursor-center"></div>
+    </div>
+    <div class="card-body">
+      <span class="pick-label">D</span>
+      <h3>Crosshair</h3>
+      <p>Lineas de mira finas con punto central. Tecnico y distinto. Recuerda a un editor de codigo.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function select(el, val) {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  if (window.parent) window.parent.postMessage({type:'select',choice:val,text:el.querySelector('h3').textContent},'*');
+}
+</script>
+
+</body>
+</html>

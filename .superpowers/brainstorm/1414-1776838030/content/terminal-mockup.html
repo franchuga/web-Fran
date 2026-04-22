@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup — Terminal en el Hero</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+
+  .page-title {
+    color: #58a6ff;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: monospace;
+    opacity: 0.7;
+  }
+
+  /* ── HERO MOCKUP ── */
+  .hero-mockup {
+    width: 100%;
+    max-width: 820px;
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .hero-mockup__bar {
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    color: #8b949e;
+    font-family: monospace;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-mockup__bar span { opacity: 0.4; }
+
+  .hero-body {
+    padding: 3.5rem 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .hero-name {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #c9d1d9;
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: #58a6ff;
+  }
+
+  /* ── TERMINAL WIDGET ── */
+  .terminal {
+    width: 100%;
+    max-width: 560px;
+    background: #010409;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: left;
+    margin-top: 0.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+
+  .terminal__titlebar {
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+    padding: 0.55rem 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dot {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+  }
+  .dot--red    { background: #ff5f57; }
+  .dot--yellow { background: #febc2e; }
+  .dot--green  { background: #28c840; }
+
+  .terminal__title {
+    flex: 1;
+    text-align: center;
+    font-size: 0.68rem;
+    color: #8b949e;
+    font-family: monospace;
+    margin-right: 2.5rem;
+  }
+
+  .terminal__body {
+    padding: 1rem 1.1rem;
+    font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.78rem;
+    line-height: 1.75;
+    min-height: 180px;
+  }
+
+  .line-prompt { color: #58a6ff; }
+  .line-cmd    { color: #c9d1d9; }
+  .line-out    { color: #8b949e; }
+  .line-accent { color: #58a6ff; }
+  .line-green  { color: #3fb950; }
+  .line-dim    { color: #484f58; }
+
+  .cursor {
+    display: inline-block;
+    width: 7px; height: 13px;
+    background: #58a6ff;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .terminal__input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 1.1rem 0.85rem;
+    border-top: 1px solid #21262d;
+  }
+
+  .input-prompt { color: #58a6ff; font-family: monospace; font-size: 0.78rem; white-space: nowrap; }
+  .input-field {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: #c9d1d9;
+    font-family: monospace;
+    font-size: 0.78rem;
+    caret-color: #58a6ff;
+  }
+
+  /* ── ANNOTATIONS ── */
+  .annotations {
+    width: 100%;
+    max-width: 820px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .ann {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+  }
+
+  .ann h4 {
+    font-family: monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #58a6ff;
+    margin-bottom: 0.6rem;
+  }
+
+  .ann ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .ann li {
+    font-size: 0.8rem;
+    color: #8b949e;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .ann li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: #58a6ff;
+  }
+
+  .note {
+    width: 100%;
+    max-width: 820px;
+    font-size: 0.8rem;
+    color: #484f58;
+    text-align: center;
+    font-family: monospace;
+  }
+
+  /* selection button */
+  .pick-btn {
+    margin-top: 1rem;
+    padding: 0.6rem 1.6rem;
+    background: #58a6ff;
+    color: #0d1117;
+    border: none;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: opacity 0.15s;
+  }
+  .pick-btn:hover { opacity: 0.85; }
+  .pick-btn.alt {
+    background: transparent;
+    border: 1px solid #30363d;
+    color: #8b949e;
+  }
+  .pick-btn.alt:hover { border-color: #58a6ff; color: #58a6ff; }
+
+  .btn-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
+</head>
+<body>
+
+<p class="page-title">Diseno — Terminal interactiva en el hero</p>
+
+<!-- HERO PREVIEW -->
+<div class="hero-mockup">
+  <div class="hero-mockup__bar">
+    <span>francescguillemat.com</span>
+  </div>
+  <div class="hero-body">
+    <h1 class="hero-name">Francesc Guillemat Arrabal</h1>
+    <p class="hero-subtitle">Desarrollador de Aplicaciones Web</p>
+
+    <!-- THE TERMINAL WIDGET -->
+    <div class="terminal">
+      <div class="terminal__titlebar">
+        <div class="dot dot--red"></div>
+        <div class="dot dot--yellow"></div>
+        <div class="dot dot--green"></div>
+        <div class="terminal__title">fga@portfolio ~ zsh</div>
+      </div>
+      <div class="terminal__body">
+        <div><span class="line-dim">Bienvenido. Escribe</span> <span class="line-accent">help</span> <span class="line-dim">para ver los comandos disponibles.</span></div>
+        <br>
+        <div><span class="line-prompt">fga@portfolio</span><span class="line-dim">:~$</span> <span class="line-cmd">whoami</span></div>
+        <div class="line-green">Francesc Guillemat Arrabal</div>
+        <div class="line-out">Estudiante DAW · Tarragona · 18 anos</div>
+        <div class="line-out">Especialidad: desarrollo web full-stack</div>
+        <br>
+        <div><span class="line-prompt">fga@portfolio</span><span class="line-dim">:~$</span> <span class="line-cmd">github --stats</span></div>
+        <div class="line-out">Cargando datos de GitHub<span class="line-accent">...</span></div>
+        <div class="line-green">Repositorios publicos: 12</div>
+        <div class="line-out">Lenguajes: JavaScript · Java · HTML · CSS</div>
+        <br>
+        <div><span class="line-prompt">fga@portfolio</span><span class="line-dim">:~$</span> <span class="cursor"></span></div>
+      </div>
+      <div class="terminal__input-row">
+        <span class="input-prompt">fga@portfolio:~$</span>
+        <input class="input-field" placeholder="escribe un comando..." />
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ANNOTATIONS -->
+<div class="annotations">
+  <div class="ann">
+    <h4>Comandos disponibles</h4>
+    <ul>
+      <li><code>help</code> — lista de comandos</li>
+      <li><code>whoami</code> — nombre, rol, ubicacion</li>
+      <li><code>ls projects</code> — lista proyectos</li>
+      <li><code>skills</code> — tecnologias dominadas</li>
+      <li><code>github --stats</code> — datos en vivo via API</li>
+      <li><code>contact</code> — email y redes</li>
+      <li><code>clear</code> — limpia la terminal</li>
+    </ul>
+  </div>
+  <div class="ann">
+    <h4>Detalles tecnicos</h4>
+    <ul>
+      <li>100% vanilla JS, sin dependencias</li>
+      <li>GitHub REST API (sin auth, limite 60 req/h)</li>
+      <li>Typing effect en cada respuesta</li>
+      <li>Historial con flecha arriba</li>
+      <li>Cursor global estilo dot sobre el fondo de estrellas</li>
+      <li>Tab-completion opcional para comandos</li>
+    </ul>
+  </div>
+</div>
+
+<p class="note">El widget se integra en index.html reemplazando los botones CTA del hero. El input del teclado va directo al campo oculto de la terminal.</p>
+
+<div class="btn-row">
+  <button class="pick-btn" onclick="window.parent && window.parent.postMessage({type:'select',choice:'approve',text:'Aprobado, este diseno me gusta'},'*'); alert('Seleccionado: Aprobado')">Me gusta, seguimos con este</button>
+  <button class="pick-btn alt" onclick="window.parent && window.parent.postMessage({type:'select',choice:'change',text:'Quiero cambiar algo'},'*'); alert('Seleccionado: Cambiar algo')">Quiero cambiar algo</button>
+</div>
+
+</body>
+</html>

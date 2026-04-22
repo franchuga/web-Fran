@@ -1,0 +1,66 @@
+<h2>Diseno tecnico</h2>
+<p class="subtitle">Como se integra la terminal en el proyecto existente. Sin frameworks, sin dependencias.</p>
+
+<div class="section">
+  <h3>Arquitectura — un solo archivo nuevo</h3>
+  <div class="mockup">
+    <div class="mockup-header">Estructura de archivos — cambios</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:0.82rem;line-height:2">
+      <span style="color:#3fb950">+</span> <strong>terminal.js</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← motor completo de la terminal (comandos, typing, GitHub API)<br>
+      <span style="color:#f0883e">~</span> <strong>index.html</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← se añade el widget HTML en el hero + &lt;script src="terminal.js"&gt;<br>
+      <span style="color:#f0883e">~</span> <strong>style.css</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← estilos del widget (variables ya existentes, sin romper nada)<br>
+      <span style="color:#484f58">·</span> <em>resto de archivos</em> &nbsp;← sin tocar
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Flujo de datos</h3>
+  <div class="mockup">
+    <div class="mockup-header">Cuando el usuario escribe "github --stats"</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:0.8rem;line-height:2.2">
+      Usuario escribe comando<br>
+      &nbsp;&nbsp;↓<br>
+      terminal.js parsea el input → busca en el mapa de comandos<br>
+      &nbsp;&nbsp;↓<br>
+      si es "github": <code>fetch('https://api.github.com/users/francescguillematarrabal')</code><br>
+      &nbsp;&nbsp;↓<br>
+      respuesta JSON → extrae repos, lenguajes<br>
+      &nbsp;&nbsp;↓<br>
+      typing effect imprime linea a linea en el output<br>
+      &nbsp;&nbsp;↓<br>
+      listo — sin recarga de pagina, sin auth
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Sistema de comandos</h3>
+  <div class="mockup">
+    <div class="mockup-header">terminal.js — estructura interna</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:0.78rem;line-height:1.9">
+      <span style="color:#58a6ff">const</span> COMMANDS = {<br>
+      &nbsp;&nbsp;<span style="color:#79c0ff">help</span>: () => [ "Comandos: whoami, ls projects, skills, github --stats, contact, clear" ],<br>
+      &nbsp;&nbsp;<span style="color:#79c0ff">whoami</span>: () => [ "Francesc Guillemat · DAW · Tarragona · 18" ],<br>
+      &nbsp;&nbsp;<span style="color:#79c0ff">'ls projects'</span>: () => [ "web-instituto/", "poka-iot/", "viorcam-pedidos/" ],<br>
+      &nbsp;&nbsp;<span style="color:#79c0ff">skills</span>: () => [ "HTML · CSS · JS · Java · SQL · Git · MongoDB · Spring" ],<br>
+      &nbsp;&nbsp;<span style="color:#79c0ff">'github --stats'</span>: <span style="color:#58a6ff">async</span> () => <span style="color:#58a6ff">await</span> fetchGitHub(),<br>
+      &nbsp;&nbsp;<span style="color:#79c0ff">contact</span>: () => [ "email: deadmanjdf@gmail.com", "github: francescguillematarrabal" ],<br>
+      &nbsp;&nbsp;<span style="color:#79c0ff">clear</span>: () => { clearOutput(); <span style="color:#58a6ff">return</span> []; }<br>
+      }
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Extras incluidos en el diseno</h3>
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:0.4rem;font-size:0.85rem;color:var(--text-secondary,#8b949e)">
+    <li>&#x2713; Historial de comandos con flecha arriba/abajo</li>
+    <li>&#x2713; Tab-completion para los comandos disponibles</li>
+    <li>&#x2713; Typing effect configurable (velocidad ajustable)</li>
+    <li>&#x2713; Mensaje de bienvenida al cargar la pagina</li>
+    <li>&#x2713; Fallback si la API de GitHub falla (mensaje de error limpio)</li>
+    <li>&#x2713; El input del teclado va directo a la terminal sin necesidad de hacer click</li>
+    <li>&#x2713; Responsive — en movil ocupa todo el ancho</li>
+  </ul>
+</div>

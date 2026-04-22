@@ -1,0 +1,45 @@
+<h2>3 enfoques para el portfolio</h2>
+<p class="subtitle">Cada uno cubre las tres areas (interactividad, APIs, efectos visuales) pero con diferente prioridad y complejidad.</p>
+
+<div class="options">
+  <div class="option" data-choice="terminal" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Terminal interactiva en el hero</h3>
+      <p>Un widget que parece una terminal de verdad vive en la pagina de inicio. El visitante escribe comandos como <code>whoami</code>, <code>ls projects</code>, <code>skills --list</code> o <code>github --stats</code> (este ultimo tira de la API de GitHub en vivo). Cursor personalizado al pasar por encima, efecto de typing en las respuestas. Cubre las tres areas de golpe.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Puntos fuertes</h4><ul><li>Unico — pocos portfolios lo tienen</li><li>El visitante interactua activamente</li><li>Demuestra DOM, async JS y APIs</li><li>Muy memorable</li></ul></div>
+        <div class="cons"><h4>Puntos debiles</h4><ul><li>Mas complejo de implementar bien</li><li>Puede distraer del contenido principal</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="cinematics" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Scroll cinematico + GitHub en vivo</h3>
+      <p>Transiciones de pagina con efecto de "slide" o "fade", animaciones al hacer scroll section por section (snap scroll opcional), cursor con dot y trail, botones magneticos que siguen el raton, y una seccion de estadisticas de GitHub tirando de la API publica. El site entero se siente mas "vivo".</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Puntos fuertes</h4><ul><li>Mejora toda la experiencia global</li><li>Facil de apreciar sin interactuar</li><li>Datos reales de GitHub</li></ul></div>
+        <div class="cons"><h4>Puntos debiles</h4><ul><li>Menos "unico" — muchos portfolios tienen esto</li><li>El scroll snap puede ser divisivo</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="devmode" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Modo Dev — transformacion total con tecla</h3>
+      <p>Al pulsar una tecla (por ejemplo <code>/</code> o <code>~</code>) el site entra en "Dev Mode": el fondo cambia a verde sobre negro, aparecen scanlines de CRT, los textos se "glitchean", el cursor se convierte en un crosshair, y los datos de GitHub aparecen como output de terminal. Una segunda pulsacion vuelve al modo normal.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Puntos fuertes</h4><ul><li>Efecto "wow" inmediato y sorprendente</li><li>Easter egg que la gente comparte</li><li>Combina visual + API de forma elegante</li></ul></div>
+        <div class="cons"><h4>Puntos debiles</h4><ul><li>Puede parecer un juguete si no se ejecuta bien</li><li>El modo normal debe seguir siendo solido</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:2rem;padding:1rem 1.25rem;border:1px solid var(--border-color, #333);border-radius:8px;background:rgba(99,102,241,0.07)">
+  <p class="label">Mi recomendacion</p>
+  <p>Opcion A (terminal interactiva) — es la mas unica, cubre las tres areas y demuestra habilidades tecnicas reales de forma activa. Las opciones B y C se pueden anadir encima como capas extra despues.</p>
+</div>
