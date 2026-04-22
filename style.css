@@ -628,3 +628,114 @@ a:hover { text-decoration: underline; }
   .timeline-item::before { left: calc(1.5rem - 6px); }
   .timeline-item { padding-left: 3rem; }
 }
+
+/* ── Terminal widget ── */
+.terminal-toggle {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    transition: border-color 0.2s, color 0.2s;
+    margin-top: 0.5rem;
+}
+.terminal-toggle:hover {
+    border-color: var(--accent);
+}
+@media (max-width: 600px) {
+    .terminal-toggle { display: inline-block; }
+}
+
+.terminal {
+    width: 100%;
+    max-width: 560px;
+    background: #010409;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: left;
+    margin-top: 0.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.terminal__titlebar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0.55rem 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.terminal__dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.terminal__dot--red    { background: #ff5f57; }
+.terminal__dot--yellow { background: #febc2e; }
+.terminal__dot--green  { background: #28c840; }
+
+.terminal__title {
+    flex: 1;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    margin-right: 2rem;
+}
+
+.terminal__output {
+    padding: 1rem 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.75;
+    min-height: 160px;
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.terminal__output .t-line {
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+.terminal__output .t-prompt { color: var(--accent); }
+.terminal__output .t-cmd    { color: var(--text); }
+.terminal__output .t-out    { color: var(--text-dim); }
+.terminal__output .t-ok     { color: #3fb950; }
+.terminal__output .t-err    { color: #f85149; }
+.terminal__output .t-dim    { color: #484f58; }
+
+.terminal__input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 1.1rem 0.75rem;
+    border-top: 1px solid var(--border);
+}
+
+.terminal__prompt {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.terminal__input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    caret-color: var(--accent);
+}
