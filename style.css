@@ -754,7 +754,26 @@ a:hover { text-decoration: underline; }
 }
 
 html.light .terminal {
-    background: #010409;
+    background: #f6f8fa;
+    border-color: #d0d7de;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+html.light .terminal__titlebar {
+    background: #eaeef2;
+    border-bottom-color: #d0d7de;
+}
+html.light .terminal__title {
+    color: #57606a;
+}
+html.light .terminal__input-row {
+    border-top-color: #d0d7de;
+}
+html.light .terminal__output .t-ok  { color: #1a7f37; }
+html.light .terminal__output .t-err { color: #cf222e; }
+html.light .terminal__output .t-dim { color: #8c959f; }
+html.light .terminal:focus-within {
+    border-color: #0969da;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 0 1px #0969da;
 }
 
 .terminal-toggle:focus-visible {
