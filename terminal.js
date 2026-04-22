@@ -242,6 +242,19 @@
 
         const isMobile = window.matchMedia('(max-width: 600px)').matches;
         if (!isMobile) input.focus();
+
+        const toggle = document.getElementById('termToggle');
+        const termEl = document.getElementById('terminal');
+        if (!toggle || !termEl) return;
+
+        let visible = true;
+
+        toggle.addEventListener('click', () => {
+            visible = !visible;
+            termEl.style.display = visible ? 'block' : 'none';
+            toggle.textContent   = visible ? '[ ocultar ]' : '[ terminal ]';
+            toggle.setAttribute('aria-expanded', visible ? 'true' : 'false');
+        });
     }
 
     init();
