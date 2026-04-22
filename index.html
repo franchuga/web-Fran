@@ -407,9 +407,22 @@
         <section class="hero">
             <h1 class="hero__name">Francesc Guillemat Arrabal</h1>
             <p class="hero__title" data-i18n="index.subtitle">Desarrollador de Aplicaciones Web</p>
-            <div class="hero__actions">
-                <a href="proyectos.html" class="btn btn-primary" data-i18n="index.btn.projects">Ver proyectos</a>
-                <a href="contacto.html" class="btn btn-secondary" data-i18n="index.btn.contact">Contactar</a>
+
+            <button class="terminal-toggle" id="termToggle" aria-expanded="true" aria-controls="terminal">[ ocultar ]</button>
+
+            <div class="terminal" id="terminal" aria-label="Terminal interactiva" role="region">
+                <div class="terminal__titlebar">
+                    <span class="terminal__dot terminal__dot--red"></span>
+                    <span class="terminal__dot terminal__dot--yellow"></span>
+                    <span class="terminal__dot terminal__dot--green"></span>
+                    <span class="terminal__title">fga@portfolio ~ zsh</span>
+                </div>
+                <div class="terminal__output" id="termOutput" aria-live="polite"></div>
+                <div class="terminal__input-row">
+                    <span class="terminal__prompt">fga@portfolio:~$</span>
+                    <input class="terminal__input" id="termInput" type="text"
+                           autocomplete="off" spellcheck="false" aria-label="Comando">
+                </div>
             </div>
         </section>
 
@@ -731,6 +744,7 @@
             skillObserver.observe(item);
         });
     </script>
+    <script src="terminal.js"></script>
     <script src="theme.js"></script>
     <script src="i18n.js"></script>
     <script src="globe-modal.js"></script>
