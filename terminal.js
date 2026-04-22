@@ -168,25 +168,25 @@
     // ── Commands ──────────────────────────────────────────────────
 
     const COMMANDS = {
-        help:            cmdHelp,
-        whoami:          cmdWhoami,
-        'ls projects':   cmdProjects,
-        skills:          cmdSkills,
-        'github --stats': cmdGithub,
-        contact:         cmdContact,
-        clear:           cmdClear,
+        '/help':           cmdHelp,
+        '/whoami':         cmdWhoami,
+        '/ls projects':    cmdProjects,
+        '/skills':         cmdSkills,
+        '/github --stats': cmdGithub,
+        '/contact':        cmdContact,
+        '/clear':          cmdClear,
     };
 
     function cmdHelp() {
         return [
             { text: 'Comandos disponibles:', cls: 't-ok' },
-            { text: '  help             — muestra esta lista', cls: 't-out' },
-            { text: '  whoami           — quien soy', cls: 't-out' },
-            { text: '  ls projects      — lista de proyectos', cls: 't-out' },
-            { text: '  skills           — tecnologias que domino', cls: 't-out' },
-            { text: '  github --stats   — datos en vivo de GitHub', cls: 't-out' },
-            { text: '  contact          — como contactarme', cls: 't-out' },
-            { text: '  clear            — limpia la pantalla', cls: 't-out' },
+            { text: '  /help             — muestra esta lista', cls: 't-out' },
+            { text: '  /whoami           — quien soy', cls: 't-out' },
+            { text: '  /ls projects      — lista de proyectos', cls: 't-out' },
+            { text: '  /skills           — tecnologias que domino', cls: 't-out' },
+            { text: '  /github --stats   — datos en vivo de GitHub', cls: 't-out' },
+            { text: '  /contact          — como contactarme', cls: 't-out' },
+            { text: '  /clear            — limpia la pantalla', cls: 't-out' },
         ];
     }
 
@@ -248,7 +248,7 @@
     // ── Init ──────────────────────────────────────────────────────
 
     function init() {
-        appendLine('Bienvenido. Escribe <span class="t-ok">help</span> para ver los comandos disponibles.', 't-dim');
+        appendLine('Bienvenido. Escribe <span class="t-ok">/help</span> para ver los comandos disponibles.', 't-dim');
 
         const isMobile = window.matchMedia('(max-width: 600px)').matches;
         if (!isMobile) input.focus();
