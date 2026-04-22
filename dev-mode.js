@@ -40,7 +40,7 @@
     function showTooltip(e) {
         if (!isActive()) return;
         var el = e.target;
-        if (!el.classList.length) { tooltip.style.display = 'none'; return; }
+        if (!el || !el.classList || !el.classList.length) { if (tooltip) tooltip.style.display = 'none'; return; }
         var classes = Array.from(el.classList).map(function (c) { return '.' + c; }).join(' ');
         tooltip.textContent = classes;
         tooltip.style.display = 'block';
