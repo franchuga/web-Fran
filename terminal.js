@@ -43,7 +43,7 @@
 
     function printLines(lines) {
         return new Promise(resolve => {
-            if (!lines.length) { resolve(); return; }
+            if (!lines.length) { input.focus(); resolve(); return; }
 
             let lineIndex = 0;
 
@@ -88,7 +88,10 @@
         const cmd = raw.trim();
         if (!cmd) return;
 
-        state.history.unshift(cmd);
+        if (state.history[0] !== cmd) {
+            state.history.unshift(cmd);
+            if (state.history.length > 50) state.history.pop();
+        }
         state.historyIndex = -1;
 
         printPrompt(cmd);
@@ -145,7 +148,8 @@
         const keys = Object.keys(COMMANDS);
         const matches = keys.filter(k => k.startsWith(partial));
         if (matches.length === 1) {
-            input.value = matches[0];
+            const m = matches[0];
+            input.value = m.includes(' ') ? m : m + ' ';
         } else if (matches.length > 1) {
             printPrompt(partial);
             appendLine(matches.join('    '), 't-out');
