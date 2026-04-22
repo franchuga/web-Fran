@@ -2,6 +2,7 @@
     'use strict';
 
     const TYPING_SPEED = 18; // ms per character
+    const GITHUB_USER = 'francescguillematarrabal';
 
     const output = document.getElementById('termOutput');
     const input  = document.getElementById('termInput');
@@ -12,6 +13,7 @@
         history:      [],
         historyIndex: -1,
         isTyping:     false,
+        isLoading:    false,
     };
 
     // ── Output utilities ──────────────────────────────────────────
@@ -86,7 +88,9 @@
 
     async function handleInput(raw) {
         const cmd = raw.trim();
-        if (!cmd) return;
+        if (!cmd || state.isTyping || state.isLoading) return;
+
+        state.isLoading = true;
 
         if (state.history[0] !== cmd) {
             state.history.unshift(cmd);
@@ -99,12 +103,17 @@
         const handler = COMMANDS[cmd];
         if (!handler) {
             await printLines([{ text: 'bash: ' + cmd + ': command not found', cls: 't-err' }]);
+            state.isLoading = false;
             return;
         }
 
-        const result = await handler();
-        if (result && result.length) {
-            await printLines(result);
+        try {
+            const result = await handler();
+            if (result && result.length) {
+                await printLines(result);
+            }
+        } finally {
+            state.isLoading = false;
         }
     }
 
@@ -209,7 +218,7 @@
         appendLine('Conectando con GitHub...', 't-dim');
         output.scrollTop = output.scrollHeight;
         try {
-            const res = await fetch('https://api.github.com/users/francescguillematarrabal');
+            const res = await fetch('https://api.github.com/users/' + GITHUB_USER);
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const data = await res.json();
             return [
@@ -232,6 +241,7 @@
 
     function cmdClear() {
         output.innerHTML = '';
+        input.focus();
         return [];
     }
 
