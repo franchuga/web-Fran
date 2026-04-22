@@ -24,6 +24,7 @@
 
     function initTransitions() {
         var overlay = createOverlay();
+        var isTransitioning = false;
 
         // Fade in on load: overlay starts opaque, fades to transparent
         overlay.style.opacity = '1';
@@ -36,8 +37,9 @@
         // Intercept internal link clicks
         document.addEventListener('click', function (e) {
             var a = e.target.closest('a');
-            if (!a || !isInternalLink(a)) return;
+            if (!a || !isInternalLink(a) || isTransitioning) return;
 
+            isTransitioning = true;
             e.preventDefault();
             var href = a.href;
 
