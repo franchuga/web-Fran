@@ -699,6 +699,10 @@ a:hover { text-decoration: underline; }
     min-height: 160px;
     max-height: 260px;
     overflow-y: auto;
+    scrollbar-width: none;
+}
+.terminal__output::-webkit-scrollbar {
+    display: none;
 }
 
 .terminal__output .t-line {
