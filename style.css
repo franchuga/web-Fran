@@ -780,3 +780,66 @@ html.light .terminal:focus-within {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
+
+/* ── Page overlay (transitions) ── */
+#page-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 9998;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* ── Dev Mode ── */
+body.dev-mode div,
+body.dev-mode section,
+body.dev-mode article,
+body.dev-mode main,
+body.dev-mode aside   { outline: 1px dashed rgba(88, 166, 255, 0.5); }
+
+body.dev-mode a,
+body.dev-mode button,
+body.dev-mode [role="button"] { outline: 1px dashed rgba(63, 185, 80, 0.7); }
+
+body.dev-mode h1, body.dev-mode h2, body.dev-mode h3,
+body.dev-mode h4, body.dev-mode h5, body.dev-mode h6 { outline: 1px dashed rgba(219, 109, 230, 0.7); }
+
+body.dev-mode p,
+body.dev-mode span,
+body.dev-mode li      { outline: 1px dashed rgba(210, 153, 34, 0.5); }
+
+#dev-badge {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: #da3633;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    z-index: 10000;
+    pointer-events: none;
+    display: none;
+}
+body.dev-mode #dev-badge { display: block; }
+
+#dev-tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.85);
+    color: #58a6ff;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    z-index: 10001;
+    pointer-events: none;
+    display: none;
+    max-width: 260px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
